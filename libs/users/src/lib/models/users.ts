@@ -1,5 +1,14 @@
 export class User {
   id?: string;
   name?:string;
-  icon?:string;
+  email?:string;
+  phone?:string;
+  token?:string;
+  isAdmin?:string;
+  city?:string;
+  apartment?:string;
+  street?:string;
+  country?:string;
+  zip?:string;
+  password?:string;
 }

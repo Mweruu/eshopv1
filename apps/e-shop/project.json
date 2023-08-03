@@ -16,8 +16,10 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/e-shop/tsconfig.app.json",
         "assets": ["apps/e-shop/src/favicon.ico", "apps/e-shop/src/assets"],
-        "styles": ["apps/e-shop/src/styles.scss"],
-        "scripts": []
+        "styles": ["apps/e-shop/src/styles.scss",
+                  "node_modules/quill/dist/quill.core.css",
+                  "node_modules/quill/dist/quill.snow.css"],
+        "scripts": ["./node_modules/quill/dist/quill.js"]
       },
       "configurations": {
         "production": {

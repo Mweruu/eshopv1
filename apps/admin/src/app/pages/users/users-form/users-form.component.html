@@ -1,0 +1,88 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="editMode? 'Update User':'Add User'" subheader="You can add or edit a category">
+    <!-- <ng-template pTemplate -->
+      <div class="p-grid mb-5">
+        <div class="p-col-12">
+          <p-toolbar>
+            <div class="p-toolbar-group-start">
+
+            </div>
+            <div class="p-toolbar-group-end">
+              <p-button
+              [label]="editMode? 'Update':'Create'"
+              icon="pi pi-plus"
+              styleClass="p-button-primary"
+              class="mr-2"
+              (click)="onSubmit()"
+              ></p-button>
+              <p-button
+              label="Cancel"
+              icon="pi pi-arrow-circle-left"
+              styleClass="p-button-secondary"
+              class="mr-2"
+              routerLink="/categories"
+              ></p-button>
+            </div>
+          </p-toolbar>
+        </div>
+      </div>
+      <div class="p-grid">
+        <div class="p-col-12">
+          <form [formGroup]="form">
+            <div class="formgrid grid">
+              <div class="field col-12 md:col-5">
+                  <label for="name">Name</label>
+                  <input id="name" type="text" formControlName="name" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+              <div class="field col-12 md:col-5">
+                  <label for="email">Email</label>
+                  <input id="email" type="text" formControlName="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div class="field col-12 md:col-5">
+                  <label for="phone">Phone</label>
+                  <input id="phone" type="text" formControlName="phone" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+              <div class="field col-12 md:col-5">
+                  <label for="password">Password</label>
+                  <input id="password" type="text" formControlName="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div class="field col-12 md:col-5">
+                  <label for="street">Street</label>
+                  <input id="street" type="text" formControlName="street" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+              <div class="field col-12 md:col-5">
+                  <label for="country">Country</label><br>
+                  <p-dropdown [options]="countries" formControlName="country" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"  [editable]="true" placeholder="Select a Country"></p-dropdown>
+                  <!-- <input id="country" type="text" formControlName="country" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div class="field col-12 md:col-5">
+                  <label for="apartment">Apartment</label>
+                  <input id="apartment" type="text" formControlName="apartment" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+              <div class="field col-12 md:col-5">
+                  <label for="zip">Zip</label>
+                  <input id="zip" type="text" formControlName="zip" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div class="field col-12 md:col-5">
+                  <label for="city">City</label>
+                  <input id="city" type="text" formControlName="city" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+              <div class="field col-12 md:col-5">
+                <label for="isAdmin">Is Admin</label><br>
+                <p-inputSwitch formControlName="isAdmin"></p-inputSwitch>
+              </div>
+            </div>
+        </form>
+        </div>
+      </div>
+  </p-card>
+</div>

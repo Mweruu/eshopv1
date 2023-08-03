@@ -1,0 +1,55 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<div class="admin-page">
+  <p-card header="Categories" subheader="List of all categories">
+      <div class="p-grid">
+        <div class="p-col-12">
+          <p-toolbar>
+            <div class="p-toolbar-group-start">
+              <p-button
+              label="New"
+              icon="pi pi-plus"
+              styleClass="p-button-success"
+              class="mr-2"
+              routerLink="form"
+              ></p-button>
+          </div>
+          </p-toolbar>
+        </div>
+      </div>
+      <div class="p-grid">
+        <div class="p-col-12">
+          <p-table [value]="categories" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+              <tr>
+                  <th pSortableColumn="name" >Name <p-sortIcon field="name"></p-sortIcon></th>
+                  <th pSortableColumn="icon">Icon <p-sortIcon field="icon"></p-sortIcon></th>
+                  <th pSortableColumn="color">color <p-sortIcon field="color"></p-sortIcon></th>
+                  <th></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-category>
+              <tr>
+                <td>{{ category.name }}</td>
+                <td><i class="pi" style="font-size: 1.5rem" [ngClass]="'pi-' + category.icon"></i></td>
+                <td><p-colorPicker [(ngModel)]="category.color"></p-colorPicker>
+                </td>
+                <td>
+                  <p-button
+                    icon="pi pi-trash"
+                    styleClass="p-button-danger mr-3"
+                    (click)="deleteCategory(category.id)"
+                  ></p-button>
+                  <p-button
+                    icon="pi pi-pencil"
+                    styleClass="p-button-success"
+                    (click)="editCategory(category.id)"
+                  ></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+  </p-card>
+</div>
