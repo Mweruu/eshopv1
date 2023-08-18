@@ -4,38 +4,30 @@
 <p-card header="Orders" subheader="List of all orders">
   <div class="p-grid">
     <div class="p-col-12">
-      <p-toolbar>
-        <p-button
-        label="New"
-        icon="pi pi-plus"
-        styleClass="p-button-success"
-        class="mr-2"
-        routerLink="form"
-        ></p-button>
-      </p-toolbar>
-    </div>
-  </div>
-  <div class="p-grid">
-    <div class="p-col-12">
         <p-table [value]="orders" styleClass="p-datatable-gridlines">
           <ng-template pTemplate="header">
             <tr>
-              <th>Id</th>
-              <th>ShippingAddress</th>
-              <th>Phone</th>
-              <th>Total Price</th>
+              <th pSortableColumn="user">User<p-sortIcon field="user"></p-sortIcon></th>
+              <th pSortableColumn="shippingAddress">ShippingAddress<p-sortIcon field="shippingAddress"></p-sortIcon></th>
+              <th pSortableColumn="phone">Phone<p-sortIcon field="phone"></p-sortIcon></th>
+              <th pSortableColumn="totalPrice">Total Price<p-sortIcon field="totalPrice"></p-sortIcon></th>
+              <th pSortableColumn="status">Status<p-sortIcon field="status"></p-sortIcon></th>
+              <th pSortableColumn="dateOrdered">Date ordered<p-sortIcon field="dateOrdered"></p-sortIcon></th>
               <th></th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-order>
             <tr>
-              <td>{{order.id}}</td>
+              <td>{{order.user?.name }}</td>
               <td>{{order.shippingAddress1}}</td>
               <td>{{order.phone}}</td>
               <td>{{order.totalPrice}}</td>
+              <td>{{order.status}}</td>
+              <!-- <td><p-tag [value]="orderStatus[order.status as number]?.label ||'unknown'"  [severity]="orderStatus[order.status]?.color || 'info'"></p-tag></td> -->
+              <td>{{order.dateOrdered | date:'medium'}}</td>
               <td>
                 <p-button icon="pi pi-trash" styleClass="p-button-danger mr-3"(click)="deleteOrder(order.id)"></p-button>
-                <p-button icon="pi pi-pencil" styleClass="p-button-success" (click)="editOrder(order.id)"></p-button>
+                <p-button icon="pi pi-eye" styleClass="p-button-success" (click)="showOrder(order.id)"></p-button>
               </td>
             </tr>
           </ng-template>

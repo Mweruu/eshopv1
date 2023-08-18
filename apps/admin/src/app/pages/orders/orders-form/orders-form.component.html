@@ -31,43 +31,43 @@
         <div class="p-col-12">
           <form [formGroup]="form">
             <div class="formgrid grid">
-              <div class="field col-12 md:col-5">
+              <div class="field col-12 md:col-5 lg:col-4">
                   <label for="shippingAddress1">Shipping Address 1</label>
                   <input id="shippingAddress1" type="text" formControlName="shippingAddress1" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
-              <div class="field col-12 md:col-5">
+              <div class="field col-12 md:col-5 lg:col-4">
                   <label for="shippingAddress2">Shipping Address 2</label>
                   <input id="shippingAddress2" type="text" formControlName="shippingAddress2" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
-            </div>
-            <div class="formgrid grid">
-              <div class="field col-12 md:col-5">
+            <!-- </div>
+            <div class="formgrid grid"> -->
+              <div class="field col-12 md:col-5  lg:col-4">
                   <label for="city">City</label>
                   <input id="city" type="text" formControlName="city" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
-              <div class="field col-12 md:col-5">
+              <div class="field col-12 md:col-5  lg:col-4">
                   <label for="zip">Zip</label>
                   <input id="zip" type="text" formControlName="zip" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
-            </div>
-            <div class="formgrid grid">
-              <div class="field col-12 md:col-5">
+            <!-- </div>
+            <div class="formgrid grid"> -->
+              <div class="field col-12 md:col-5  lg:col-4">
                   <label for="country">Country</label>
                   <input id="country" type="text" formControlName="country" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
-              <div class="field col-12 md:col-5">
+              <div class="field col-12 md:col-5 lg:col-4">
                   <label for="phone">Phone</label>
-                  <input id="phone" type="text" formControlName="phone" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                  <input id="phone" type="number" formControlName="phone" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
-            </div>
-            <div class="formgrid col-12 md:grid">
-              <div class="field col-5">
+            <!-- </div>
+            <div class="formgrid grid"> -->
+              <div class="field col-12 md:col-5 lg:col-4">
                   <label for="status">Status</label>
                   <input id="status" type="text" formControlName="status" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
-              <div class="field col-12 md:col-5">
+              <div class="field col-12 md:col-5 lg:col-4">
                   <label for="totalPrice">Total Price</label>
-                  <input id="totalPrice" type="text" formControlName="totalPrice" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                  <input id="totalPrice" type="number" formControlName="totalPrice" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
               </div>
             </div>
           </form>

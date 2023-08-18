@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService, Category } from '@eshop/products';
 import { MessageService } from 'primeng/api';
-import { timer } from 'rxjs';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'admin-categories-form',
   templateUrl: './categories-form.component.html',
   styles: [],
 })
-export class CategoriesFormComponent implements OnInit{
+export class CategoriesFormComponent implements OnInit,OnDestroy{
   form!:FormGroup;
   isSubmitted = false;
   editMode = false;
   currentId!:string;
+  endsubs$: Subject<any> = new Subject();
 
   constructor( private fb:FormBuilder,
               private categoriesService:CategoriesService,
@@ -54,6 +55,7 @@ export class CategoriesFormComponent implements OnInit{
       return;
     }
     const category = {
+      id: this.currentId,
       name: this.categoriesForm['name'].value,
       icon: this.categoriesForm['icon'].value,
       color: this.categoriesForm['color'].value,
@@ -94,12 +96,12 @@ export class CategoriesFormComponent implements OnInit{
 
 
   private _updateCategory(category:Category){
-    this.categoriesService.updateCategory(this.currentId,category).subscribe(category=>{
+    this.categoriesService.updateCategory(this.currentId,category).pipe(takeUntil(this.endsubs$)).subscribe(category=>{
       console.log(category)
       this.messageService.add({
         severity:'success',
         summary:`Category ${category.name} successfully updated`,
-        })
+        });
 
     timer(3500).toPromise().then(()=>{
       this.router.navigate(['/categories'])
@@ -117,5 +119,10 @@ export class CategoriesFormComponent implements OnInit{
 
   get categoriesForm(){
     return this.form.controls
+  }
+
+  ngOnDestroy() {
+    // this.endsubs$.next();
+    this.endsubs$.complete();
   }
 }

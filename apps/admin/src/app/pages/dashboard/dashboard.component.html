@@ -2,51 +2,47 @@
   <p-card header="Dashboard" subheader="Latest Updates">
     <div class="grid">
       <div class="col-3">
-        <p-card styleClass="d-verified" routerLink="/users">
+        <p-card styleClass="d-orders" routerLink="/users">
           <div class="d-item">
             <div>
-              <!-- <i class="pi pi-car"></i> -->
-              <span class="name">Users</span>
+              <i class="pi pi-briefcase"></i><br>
+              <span class="name">Orders</span>
             </div>
-            <span class="number"></span>
+            <span class="number">45</span>
           </div>
         </p-card>
-        <!-- <p-card header="{{verified}}" routerLink="/verifiedvehicles" [style]="{ 'background-color':'lightblue'}">
-          <p class="m-0">
-            Verified Vehicles
-          </p>
-        </p-card> -->
       </div>
 
       <div class="col-3">
-        <p-card styleClass="d-notverified" routerLink="/products">
+        <p-card styleClass="d-customers" routerLink="/products">
           <div class="d-item">
             <div>
-              <!-- <i class="pi pi-car"></i> -->
+              <i class="pi pi-users"></i><br>
+              <span class="name">Customers</span>
+            </div>
+            <span class="number">667</span>
+          </div>
+        </p-card>
+      </div>
+      <div class="col-3">
+        <p-card styleClass="d-products" routerLink="/categories">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-shopping-bag"></i><br>
               <span class="name">Products</span>
             </div>
-            <span class="number"></span>
+            <span class="number">12</span>
           </div>
         </p-card>
       </div>
       <div class="col-3">
-        <p-card styleClass="d-buyer" routerLink="/categories">
+        <p-card styleClass="d-sales" routerLink="/orders">
           <div class="d-item">
             <div>
-              <span class="name">Categories</span>
+              <i class="pi pi-dollar"></i><br>
+              <span class="name">Total Sales</span>
             </div>
-            <span class="number"></span>
-          </div>
-        </p-card>
-      </div>
-      <div class="col-3">
-        <p-card styleClass="d-vendor" routerLink="/orders">
-          <div class="d-item">
-            <div>
-              <!-- <i class="pi pi-car"></i> -->
-              <span class="name">Orders</span>
-            </div>
-            <span class="number"></span>
+            <span class="number">{{'4356' |currency}}</span>
           </div>
         </p-card>
       </div>

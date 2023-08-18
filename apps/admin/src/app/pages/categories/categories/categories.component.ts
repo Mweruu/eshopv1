@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriesService, Category} from '@eshop/products';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -9,8 +10,9 @@ import { MessageService, ConfirmationService } from 'primeng/api';
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
 })
-export class CategoriesComponent implements OnInit{
+export class CategoriesComponent implements OnInit,OnDestroy{
   categories: Category[] = [];
+  endSubs$: Subject<any>= new Subject();
 
   constructor( private categoriesService:CategoriesService,
               private messageService:MessageService,
@@ -22,7 +24,7 @@ export class CategoriesComponent implements OnInit{
   }
 
   private _getCategories(){
-    this.categoriesService.getCategories().subscribe((categories)=>{
+    this.categoriesService.getCategories().pipe(takeUntil(this.endSubs$)).subscribe((categories)=>{
       this.categories =categories;
       console.log(this.categories)
 
@@ -60,5 +62,10 @@ export class CategoriesComponent implements OnInit{
 
   editCategory(categoryId:string){
     this.router.navigateByUrl(`categories/form/${categoryId}`)
+  }
+
+  ngOnDestroy(): void {
+    console.log("destroyed")
+      this.endSubs$.complete()
   }
 }

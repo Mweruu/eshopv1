@@ -1,4 +1,5 @@
 export class Product {
+  id!: string;
   userId?:string;
   name?:string;
   price?:string;
@@ -8,5 +9,9 @@ export class Product {
   category?:string;
   richDescription?:string;
   image?:string;
+  images?:string[];
   isFeatured?:string;
+  rating?:string;
+  numReviews?: number;
+  dateCreated?: string;
 }

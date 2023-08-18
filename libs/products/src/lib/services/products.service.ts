@@ -15,6 +15,7 @@ export class ProductsService {
   getProducts():Observable<Product[]>{
     return this.http.get<Product[]>(`${this.apiUrl}getproducts`)
   }
+
   createProducts(product:Product):Observable<Product>{
     return this.http.post<Product>(`${this.apiUrl}createproducts`, product)
   }
@@ -22,8 +23,13 @@ export class ProductsService {
   deleteProduct(productId:string): Observable<Product>{
     return this.http.delete<Product>(`${this.apiUrl}deleteproduct/${productId}`)
   }
+
   getProduct(productId:string):Observable<Product>{
     return this.http.get<Product>(`${this.apiUrl}getproduct/${productId}`)
+  }
+
+  getProductbycatId(categoryId:string[]):Observable<Product[]>{
+    return this.http.get<Product[]>(`${this.apiUrl}getproducts/${categoryId}`)
   }
 
   updateProduct(productId:string ,product:Product):Observable<Product>{

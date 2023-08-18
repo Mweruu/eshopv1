@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { User, UsersService } from '@eshop/users';
 import { timer } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as countriesLib from 'i18n-iso-countries';
+
+
+declare const require: (arg0: string) => countriesLib.LocaleData;
 
 @Component({
   selector: 'admin-users-form',
@@ -14,11 +18,12 @@ export class UsersFormComponent implements OnInit{
   form!:FormGroup;
   editMode = false;
   currentId!:string;
-  // countries:COUNTRIES;
-  countries = [];
+  isSubmitted = false;
+  countries:any[] =[];
+  emailControl= new FormControl('',[ Validators.email, Validators.required]);
 
 
-  constructor( private fb:FormBuilder,
+  constructor(private fb:FormBuilder,
               private usersService: UsersService,
               private messageService:MessageService,
               private router:Router,
@@ -27,7 +32,7 @@ export class UsersFormComponent implements OnInit{
   ngOnInit(): void {
     this.form = this.fb.group({
       name:['', Validators.required],
-      email:['', Validators.required],
+      email:this.emailControl,
       phone:['', Validators.required],
       city:['', Validators.required],
       apartment:['', Validators.required],
@@ -38,8 +43,20 @@ export class UsersFormComponent implements OnInit{
       isAdmin:['']
     })
     this._checkEditMode();
+    this._getCountries();
 
+  }
 
+  private _getCountries(){
+    countriesLib.registerLocale(require("i18n-iso-countries/langs/en.json"));
+    console.log(countriesLib.getNames("en", {select: "official"})); // { 'AF': 'Afghanistan', 'AL': 'Albania', [...], 'ZM': 'Zambia', 'ZW': 'Zimbabwe' }
+    this.countries = Object.entries(countriesLib.getNames("en", {select: "official"})).map((entry) => {
+      return{
+        id:entry[0],
+        name:entry[1]
+      }
+    })
+    console.log(this.countries)
   }
 
   private _checkEditMode(){
@@ -66,6 +83,7 @@ export class UsersFormComponent implements OnInit{
   }
 
   onSubmit(){
+    this.isSubmitted =true
     if(this.form.invalid){
       return;
     }

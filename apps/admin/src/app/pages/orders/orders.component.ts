@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, OrdersService } from '@eshop/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ORDER_STATUS } from './order.constants';
 
 @Component({
   selector: 'admin-orders',
@@ -10,7 +11,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class OrdersComponent implements OnInit{
   orders:Order[] = [];
-
+  orderStatus = ORDER_STATUS;
+  
   constructor(private ordersService: OrdersService,
               private messageService:MessageService,
               private confirmationService:ConfirmationService,
@@ -18,7 +20,9 @@ export class OrdersComponent implements OnInit{
               ){}
 
   ngOnInit(): void {
-      this.getOrders()
+      this.getOrders();
+      const arrayObject = Object.values(ORDER_STATUS);
+      console.log(arrayObject)
   }
 
   getOrders(){
@@ -56,8 +60,8 @@ export class OrdersComponent implements OnInit{
 }
 
 
-  editOrder(orderId:string){
-  this.router.navigateByUrl(`orders/form/${orderId}`)
+  showOrder(orderId:string){
+  this.router.navigateByUrl(`orders/${orderId}`)
   }
 
 }

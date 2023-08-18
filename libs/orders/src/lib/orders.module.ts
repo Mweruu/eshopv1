@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class OrdersModule {
   constructor(private http:HttpClient){}
 
-  getUsers(){
+  getOrders(){
     return this.http.get('http://localhost:3000/api/getorders')
   }
 }

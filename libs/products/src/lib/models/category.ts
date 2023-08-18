@@ -1,8 +1,7 @@
 export interface Category {
-  id?: string;
+  id: string;
   name?:string;
   color?:string;
   icon?:string;
-  image?:string;
-
+  checked?:boolean;
 }

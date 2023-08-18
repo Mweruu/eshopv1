@@ -1,0 +1,84 @@
+<p-toast></p-toast>
+<div class="admin-page" *ngIf="order">
+  <p-card header="View order" subheader="You can edit order status here">
+    <p-fieldset legend="Order Details" [toggleable]="true" styleClass="mb-4">
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-5 lg:col-4">
+          <h5 >Order id</h5>
+          <p>{{order.id}}</p>
+        </div>
+        <div class="field col-12 md:col-5 lg:col-4">
+          <h5>Order Date</h5>
+          <p>{{order.dateOrdered |date:'medium'}}</p>
+        </div>
+        <div class="field col-12 md:col-5 lg:col-4">
+          <h5>Order Status</h5>
+          <p-dropdown [options]="rr" [(ngModel)]="selectedStatus" (onChange)="onStatusChange($event)" optionLabel="label" ></p-dropdown>
+          <!-- <p>{{order.status}}</p> -->
+        </div>
+        <div class="field col-12 md:col-5 lg:col-4">
+          <h5>Order Total Price</h5>
+          <p>{{order.totalPrice | currency}}</p>
+        </div>
+      </div>
+    </p-fieldset>
+
+    <p-fieldset legend="Order Items" [toggleable]="true" styleClass="mb-4">
+      <div class="formgrid grid mb-5 font-bold">
+        <div class="col-2">Name</div>
+        <div class="col-2">Brand</div>
+        <div class="col-2">Category</div>
+        <div class="col-2">Price</div>
+        <div class="col-2">Quantity</div>
+        <div class="col-2">subtotal</div>
+      </div>
+      <div class="formgrid grid mb-5" >
+        <!-- *ngFor="let orderItem of order.orderItems"
+        <div class="col-2">{{orderItem.product.name}}</div>
+        <div class="col-2">{{orderItem.product.brand}}</div>
+        <div class="col-2">{{orderItem.product.category}}</div>
+        <div class="col-2">{{orderItem.product.price}}</div>
+        <div class="col-2">{{orderItem.product.quantity}}</div>
+        <div class="col-2">{{orderItem.product.subtotal}}</div> -->
+        <div class="col-2">orderItem.product.name</div>
+        <div class="col-2">orderItem.product.brand</div>
+        <div class="col-2">orderItem.product.category</div>
+        <div class="col-2">orderItem.product.price</div>
+        <div class="col-2">orderItem.product.quantity</div>
+        <div class="col-2">orderItem.product.subtotal</div>
+      </div>
+      <div class="formgrid grid mb-5 text-green-700 font-bold">
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+        <div class="col-2 p-offset-8">Total Price</div>
+        <div class="col-2">orderItem.product.totalPrice</div>
+      </div>
+    </p-fieldset>
+
+    <p-fieldset legend="Order Address" [toggleable]="true" styleClass="mb-4">
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-5 lg:col-4">
+          <h5 >Order Address</h5>
+          <p>{{order.shippingAddress1}}</p>
+          <p>{{order.shippingAddress2}}</p>
+          <p>{{order.zip}}</p>
+          <p>{{order.city}}</p>
+          <p>{{order.country}}</p>
+
+        </div>
+        <div class="field col-12 md:col-5 lg:col-4">
+          <h5>Customer info</h5>
+          <p>{{order.user?.name}}</p>
+        </div>
+        <div class="field col-12 md:col-5 lg:col-4">
+          <h5>Contact info</h5>
+          <p>{{order.user?.email}}</p>
+          <p>{{order.user?.phone}}</p>
+
+        </div>
+      </div>
+    </p-fieldset>
+  </p-card>
+</div>
