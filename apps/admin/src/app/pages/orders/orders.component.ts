@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Order, OrdersService } from '@eshop/orders';
+import { Order, OrdersService, ORDER_STATUS } from '@eshop/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ORDER_STATUS } from './order.constants';
 
 @Component({
   selector: 'admin-orders',
@@ -12,7 +11,7 @@ import { ORDER_STATUS } from './order.constants';
 export class OrdersComponent implements OnInit{
   orders:Order[] = [];
   orderStatus = ORDER_STATUS;
-  
+
   constructor(private ordersService: OrdersService,
               private messageService:MessageService,
               private confirmationService:ConfirmationService,

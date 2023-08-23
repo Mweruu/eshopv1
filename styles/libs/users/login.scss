@@ -1,5 +1,18 @@
 .login-register{
+  background: linear-gradient(235deg, #565867, #191a25);
+  height: 100vh;
   &-panel{
-    background-color: azure;
+    width: 650px;
+    height: 525px;
+    background-color: var(--surface-a);
+    position: absolute;
+    left: calc(50% - 325px);
+    top:calc(50% - 262px);
+
+  }
+  &-grid1{
+    background: linear-gradient(235deg, #565867, #565974);
+    height: 70vh;
+    padding: 20px;
   }
 }

@@ -1,8 +1,8 @@
+<p-toast></p-toast>
 <div class="product-page">
   <div class="grid">
     <div class="col-6" *ngIf="product">
       <eshop-ui-gallery ></eshop-ui-gallery>
-
       <!-- <eshop-ui-gallery [images]="product.images"></eshop-ui-gallery> -->
     </div>
     <div class="col-6 product" *ngIf="product">
@@ -14,14 +14,14 @@
       <div class="product-price">
         {{product.price | currency}}
         <span class="price-before">
-          {{ product.price | currency }}
+          {{ product.price || 0 + 8 ||0 | currency }}
         </span>
       </div>
       <p-divider></p-divider>
       <div class="product-quantity">
         <div class="flex-auto">
           <label class="mb-2 block font-bold" for="quantity">Quantity</label>
-          <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="quantity" [min]="0" [max]="100"> </p-inputNumber>
+          <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="quantity" [min]="1" [max]="100"> </p-inputNumber>
         </div>
       </div>
       <div class="product-actions">

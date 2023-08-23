@@ -11,13 +11,14 @@ import { UsersFormComponent } from "./pages/users/users-form/users-form.componen
 import { UsersComponent } from "./pages/users/users.component";
 import { ShellComponent } from "./shared/shell/shell.component";
 import { NgModule } from "@angular/core";
-import { UsersModule } from "@eshop/users";
+import { AuthGuard, UsersModule } from "@eshop/users";
 
 
-const appRoutes: Routes = [
+const appRoutes : Routes = [
   {
     path: '',
     component: ShellComponent,
+    canActivate:[AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
       { path: 'products', component: ProductsComponent },

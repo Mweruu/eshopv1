@@ -1,0 +1,58 @@
+<div class="cart-page">
+  <div class="grid">
+    <div class="col-8">
+      <div>
+        <p-button icon="pi pi-arrow-left" label="continue shopping" (onClick)="backToShop()"></p-button>
+      </div>
+      <div>
+        <h4>My cart:{{cartCount}} item(s)</h4>
+      </div>
+      <div class="cart-shipping mb-5">
+        Shipping after the payment, Delivery time : 1 to 4 working days
+      </div>
+      <div class="cart-item mb-5" *ngFor="let cartItem of CartItemDetailed">
+        <div class="grid p-fluid">
+          <div class="col-2 cart-item-image">
+            <img [src]="cartItem.product.image" [attr.alt]="cartItem.product.name">
+          </div>
+          <div class="col-7">
+            <div class="cart-item-name">
+              {{cartItem.product.name}}
+            </div>
+            <div class="cart-item-price">
+              {{cartItem.product.price |currency}}
+            </div>
+            <div class="cart-item-remove">
+              <p-button icon="pi pi-trash" styleClass="p-button-danger " (onClick)="deleteCartItem(cartItem)"></p-button>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="cart-item-quantity">
+              <div class="flex-auto">
+                <p-inputNumber
+                [(ngModel)]="cartItem.quantity"
+                mode="decimal"
+                [showButtons]="true"
+                [inputId]="cartItem.product.id"
+                [min]="1"
+                [max]="100"
+                (onInput)="updateCartItemQuantity($event,cartItem)"
+                > </p-inputNumber>
+              </div>
+            </div>
+            <div class="cart-item-subtotal">
+              Subtotal:
+              <span class="cart-item-subtotal-value" *ngIf="cartItem?.product?.price && cartItem?.quantity">
+                {{ (cartItem?.product?.price || 0) * (cartItem?.quantity || 0) | currency }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <eshop-order-summary></eshop-order-summary>
+
+    </div>
+  </div>
+</div>

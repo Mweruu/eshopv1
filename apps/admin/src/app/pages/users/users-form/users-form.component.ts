@@ -4,10 +4,7 @@ import { User, UsersService } from '@eshop/users';
 import { timer } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as countriesLib from 'i18n-iso-countries';
 
-
-declare const require: (arg0: string) => countriesLib.LocaleData;
 
 @Component({
   selector: 'admin-users-form',
@@ -48,15 +45,8 @@ export class UsersFormComponent implements OnInit{
   }
 
   private _getCountries(){
-    countriesLib.registerLocale(require("i18n-iso-countries/langs/en.json"));
-    console.log(countriesLib.getNames("en", {select: "official"})); // { 'AF': 'Afghanistan', 'AL': 'Albania', [...], 'ZM': 'Zambia', 'ZW': 'Zimbabwe' }
-    this.countries = Object.entries(countriesLib.getNames("en", {select: "official"})).map((entry) => {
-      return{
-        id:entry[0],
-        name:entry[1]
-      }
-    })
-    console.log(this.countries)
+    this.countries = this.usersService.getCountries()
+
   }
 
   private _checkEditMode(){

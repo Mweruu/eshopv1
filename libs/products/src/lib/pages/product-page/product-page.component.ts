@@ -3,6 +3,8 @@ import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product';
 import { Subject, takeUntil } from 'rxjs';
+import { CartItem, CartService } from '@eshop/orders';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'eshop-product-page',
@@ -13,11 +15,13 @@ export class ProductPageComponent implements OnInit,OnDestroy{
   product!: Product
   endSubs$:Subject<any> = new Subject;
   sum = 16;
-  quantity!:number;
+  quantity = 1;
 
   constructor(private productsService:ProductsService,
               private router:Router,
-              private activatedRoute:ActivatedRoute){}
+              private activatedRoute:ActivatedRoute,
+              private cartService :CartService,
+              private messageService:MessageService){}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
@@ -37,7 +41,24 @@ export class ProductPageComponent implements OnInit,OnDestroy{
   }
 
   addProductToCart(){
-    console.log("Addtocart!?!?!?!?!")
+     const cartItem : CartItem = {
+        productId:this.product.id,
+        quantity:this.quantity
+      }
+      this.cartService.setCartItem(cartItem)
+      if(cartItem){
+        console.log(cartItem)
+        this.messageService.add({
+          severity:'success',
+          summary:`${cartItem.quantity} Item added to cart`,
+        })
+      }else{
+        this.messageService.add({
+        severity:'error',
+        summary:'Item not added to cart',
+      })
+    }
+
   }
 
   ngOnDestroy(): void {

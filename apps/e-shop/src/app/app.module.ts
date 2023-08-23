@@ -15,8 +15,9 @@ import { ProductsModule } from '@eshop/products';
 import { UiModule } from '@eshop/ui';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { OrdersModule } from '@eshop/orders';
 
-export const appRoutes: Routes = [
+export const appRoutes : Routes = [
   {
     path: '',
     component: HomePageComponent,
@@ -39,7 +40,8 @@ export const appRoutes: Routes = [
     ProductsModule,
     UiModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    OrdersModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { CategoriesBannerComponent } from './components/categories-banner/categories-banner.component';
 import { CategoriesService } from './services/categories.service';
-import { OrdersModule } from '@eshop/orders';
 import { RouterModule, Routes } from '@angular/router';
 import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
@@ -17,8 +16,11 @@ import { RatingModule } from 'primeng/rating';
 import { DividerModule } from 'primeng/divider';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { UiModule } from '@eshop/ui';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { OrdersModule } from '@eshop/orders';
 
-export const routes: Routes = [
+export const routes : Routes = [
   { path: 'products', component: ProductsListComponent },
   { path: 'category/:categoryid', component: ProductsListComponent },
   { path: 'products/:productid', component: ProductPageComponent },
@@ -39,6 +41,7 @@ export const routes: Routes = [
     DividerModule,
     InputNumberModule,
     UiModule,
+    ToastModule
   ],
   declarations: [
     ProductSearchComponent,
@@ -48,7 +51,7 @@ export const routes: Routes = [
     ProductsListComponent,
     ProductPageComponent,
   ],
-  providers: [CategoriesService],
+  providers: [CategoriesService, MessageService],
   exports: [
     ProductSearchComponent,
     CategoriesBannerComponent,

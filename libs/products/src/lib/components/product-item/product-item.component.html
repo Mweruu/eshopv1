@@ -1,9 +1,15 @@
+<p-toast></p-toast>
 <div class="product-item" *ngIf="product">
   <div class="product-item-wrapper">
-    <!-- <img (click)="viewProduct(product.id)" src='assets/images/banner-image.png' class="image" alt=""> -->
-    <img [src]="product.image" (click)="viewProduct(product.id)" class="image" alt="">
+    <img (click)="viewProduct(product.id)" src='assets/images/banner-image.png' class="image" alt="">
+    <!-- <img [src]="product.image" (click)="viewProduct(product.id)" class="image" alt=""> -->
     <h4 class="name">{{product.name}}</h4>
     <h5 class="price">{{product.price | currency}}</h5>
-    <p-button styleClass="mt-3 add-to-cart" label="Add to Cart" icon="pi pi-shopping-cart"></p-button>
+    <p-button
+    styleClass="mt-3 add-to-cart"
+    label="Add to Cart"
+    icon="pi pi-shopping-cart"
+    (click)="addProductToCart()"
+    ></p-button>
   </div>
 </div>

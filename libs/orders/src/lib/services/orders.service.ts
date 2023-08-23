@@ -14,7 +14,7 @@ export class OrdersService {
   getOrders(): Observable<Order[]>{
     return this.http.get<Order[]>(`${this.apiUrl}getorders`)
   }
-  createOrders(order:Order): Observable<Order[]>{
+  createOrder(order:Order): Observable<Order[]>{
     return this.http.post<Order[]>(`${this.apiUrl}createorder` ,order)
 
   }
@@ -27,4 +27,10 @@ export class OrdersService {
   updateOrder(categoryId:string, order:Order): Observable<Order>{
     return this.http.put<Order>(`${this.apiUrl}updateorder/${categoryId}`, order)
   }
+
+  getProduct(productId:string):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}getproduct/${productId}`)
+  }
+
+
 }

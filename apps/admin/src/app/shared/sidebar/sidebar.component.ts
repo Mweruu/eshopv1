@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalstorageService } from '@eshop/users';
 
 @Component({
   selector: 'admin-sidebar',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  constructor(private localStorage:LocalstorageService){}
+
+  logOut(){
+    this.localStorage.removeToken()
+  }
 }
