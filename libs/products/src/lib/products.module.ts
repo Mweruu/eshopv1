@@ -9,7 +9,7 @@ import { ProductItemComponent } from './components/product-item/product-item.com
 import { ButtonModule } from 'primeng/button';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { CheckboxModule } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { RatingModule } from 'primeng/rating';
@@ -41,7 +41,8 @@ export const routes : Routes = [
     DividerModule,
     InputNumberModule,
     UiModule,
-    ToastModule
+    ToastModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ProductSearchComponent,

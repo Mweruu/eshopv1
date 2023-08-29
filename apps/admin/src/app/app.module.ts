@@ -35,6 +35,9 @@ import { EditorModule } from 'primeng/editor';
 import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FieldsetModule } from 'primeng/fieldset';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { UiModule } from '@eshop/ui';
 
 
 const UX_MODULE = [
@@ -73,14 +76,20 @@ const UX_MODULE = [
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
     ...UX_MODULE,
-    HttpClientModule,
+    UiModule
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [
+    MessageService,
+    ConfirmationService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

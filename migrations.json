@@ -1,0 +1,23 @@
+{
+  "migrations": [
+    {
+      "cli": "nx",
+      "version": "16.6.0-beta.6",
+      "description": "Prefix outputs with {workspaceRoot}/{projectRoot} if needed",
+      "implementation": "./src/migrations/update-15-0-0/prefix-outputs",
+      "package": "nx",
+      "name": "16.6.0-prefix-outputs"
+    },
+    {
+      "cli": "nx",
+      "version": "16.7.0-beta.6",
+      "requires": {
+        "@angular/core": ">=16.2.0"
+      },
+      "description": "Update the @angular/cli package version to ~16.2.0.",
+      "factory": "./src/migrations/update-16-7-0/update-angular-cli",
+      "package": "@nrwl/angular",
+      "name": "update-angular-cli-version-16-2-0"
+    }
+  ]
+}

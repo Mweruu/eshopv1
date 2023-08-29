@@ -1,4 +1,3 @@
-import { User } from "@eshop/users";
 import { OrderItem } from "./order-item";
 
 export class Order {
@@ -11,7 +10,7 @@ export class Order {
   country?:string;
   phone?:string;
   status?:string;
-  totalPrice?:string;
-  user?:any;
+  totalPrice?:number;
+  userId?:any;
   dateOrdered?:string;
 }

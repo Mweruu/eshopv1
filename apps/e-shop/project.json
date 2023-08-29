@@ -16,9 +16,11 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/e-shop/tsconfig.app.json",
         "assets": ["apps/e-shop/src/favicon.ico", "apps/e-shop/src/assets"],
-        "styles": ["apps/e-shop/src/styles.scss",
-                  "node_modules/quill/dist/quill.core.css",
-                  "node_modules/quill/dist/quill.snow.css"],
+        "styles": [
+          "apps/e-shop/src/styles.scss",
+          "node_modules/quill/dist/quill.core.css",
+          "node_modules/quill/dist/quill.snow.css"
+        ],
         "scripts": ["./node_modules/quill/dist/quill.js"]
       },
       "configurations": {
@@ -26,8 +28,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1500kb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",

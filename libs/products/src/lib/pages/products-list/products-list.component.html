@@ -5,9 +5,11 @@
       <div *ngFor="let category of categories" class="field-checkbox" >
         <p-checkbox
         [(ngModel)]="category.checked"
+        [binary]="true"
         [value]="category"
         [inputId]="category.id"
-        (onChange)="categoryFilter()"></p-checkbox>
+        (onChange)="categoryFilter()"
+        ></p-checkbox>
         <label [for]="category.id">{{ category.name }}</label>
       </div>
     </div>

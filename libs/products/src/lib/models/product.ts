@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export class Product {
   id!: string;
   userId?:string;
@@ -6,7 +8,7 @@ export class Product {
   brand?:string;
   description?:string;
   countInStock?:string;
-  category?:string;
+  category?:Category;
   richDescription?:string;
   image?:string;
   images?:string[];

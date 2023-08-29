@@ -15,11 +15,11 @@ export class CartPageComponent implements OnInit, OnDestroy{
   endSubs$:Subject<any> = new Subject;
   CartItemDetailed : CartItemDetailed[] = [];
   cartCount = 0;
-  subtotal!:number
+  subtotal!:number;
 
   constructor(private router:Router,
               private cartService:CartService,
-              private ordersService:OrdersService){}
+              private ordersService:OrdersService,){}
 
   ngOnInit(): void {
       this._getCartDetails();
@@ -27,7 +27,6 @@ export class CartPageComponent implements OnInit, OnDestroy{
   }
 
   private _getCartDetails(){
-    console.log("rrrr")
     this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe( cart =>{
       this.CartItemDetailed = [];
       this.cartCount = cart.items?.length ?? 0
@@ -41,7 +40,7 @@ export class CartPageComponent implements OnInit, OnDestroy{
             })
 
           });
-        };
+        }
       });
     })
   }

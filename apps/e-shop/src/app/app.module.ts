@@ -16,6 +16,10 @@ import { UiModule } from '@eshop/ui';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { OrdersModule } from '@eshop/orders';
+import { UsersModule } from '@eshop/users';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 export const appRoutes : Routes = [
   {
@@ -37,13 +41,21 @@ export const appRoutes : Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     ProductsModule,
     UiModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    OrdersModule
+    OrdersModule,
+    UsersModule,
+
   ],
-  providers: [],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    // {provide: HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

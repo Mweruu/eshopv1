@@ -9,11 +9,17 @@
         </div>
         <div class="field col-12 md:col-5 lg:col-4">
           <h5>Order Date</h5>
-          <p>{{order.dateOrdered |date:'medium'}}</p>
+          <p>{{order.dateOrdered |date:'short'}}</p>
         </div>
         <div class="field col-12 md:col-5 lg:col-4">
           <h5>Order Status</h5>
-          <p-dropdown [options]="rr" [(ngModel)]="selectedStatus" (onChange)="onStatusChange($event)" optionLabel="label" ></p-dropdown>
+          <p-dropdown
+          [options]="orderStatuses"
+          [(ngModel)]="selectedStatus"
+          (onChange)="onStatusChange($event)"
+          optionLabel="name"
+          optionValue="id"
+          ></p-dropdown>
           <!-- <p>{{order.status}}</p> -->
         </div>
         <div class="field col-12 md:col-5 lg:col-4">
@@ -33,13 +39,13 @@
         <div class="col-2">subtotal</div>
       </div>
       <div class="formgrid grid mb-5" >
-        <!-- *ngFor="let orderItem of order.orderItems"
-        <div class="col-2">{{orderItem.product.name}}</div>
-        <div class="col-2">{{orderItem.product.brand}}</div>
-        <div class="col-2">{{orderItem.product.category}}</div>
-        <div class="col-2">{{orderItem.product.price}}</div>
-        <div class="col-2">{{orderItem.product.quantity}}</div>
-        <div class="col-2">{{orderItem.product.subtotal}}</div> -->
+        <!-- *ngFor="let orderItem of order.orderItems" -->
+        <!-- <div class="col-2">{{order.product.name}}</div>
+        <div class="col-2">{{order.product.brand}}</div>
+        <div class="col-2">{{order.product.category}}</div>
+        <div class="col-2">{{order.product.price}}</div>
+        <div class="col-2">{{order.product.quantity}}</div>
+        <div class="col-2">{{order.totalPrice}}</div> -->
         <div class="col-2">orderItem.product.name</div>
         <div class="col-2">orderItem.product.brand</div>
         <div class="col-2">orderItem.product.category</div>
@@ -48,12 +54,8 @@
         <div class="col-2">orderItem.product.subtotal</div>
       </div>
       <div class="formgrid grid mb-5 text-green-700 font-bold">
-        <div class="col-2"></div>
-        <div class="col-2"></div>
-        <div class="col-2"></div>
-        <div class="col-2"></div>
-        <div class="col-2 p-offset-8">Total Price</div>
-        <div class="col-2">orderItem.product.totalPrice</div>
+        <div class="col-2 col-offset-8">Total Price</div>
+        <div class="col-2">{{order.totalPrice}}</div>
       </div>
     </p-fieldset>
 

@@ -17,16 +17,15 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
   isSubmitted = false;
   products: Product[] = [];
   categories :Category[] = [];
-  imageDisplay!:string|ArrayBuffer;
+  imageDisplay!:string | ArrayBuffer;
   endsubs$: Subject<any> = new Subject();
-
 
   constructor( private fb:FormBuilder,
               private productsService:ProductsService,
               private messageService:MessageService,
               private router:Router,
               private activatedRoute:ActivatedRoute,
-              private categoriesService:CategoriesService
+              private categoriesService:CategoriesService,
             ){}
 
   ngOnInit(): void {
@@ -38,7 +37,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
       description:['', Validators.required],
       category:['', Validators.required],
       richDescription:[''],
-      image:['',],
+      image:['', Validators.required],
       isFeatured:[false],
 
     });
@@ -69,8 +68,8 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
           this.productsForm['image'].setValue(product.image);
           this.productsForm['isFeatured'].setValue(product.isFeatured);
           // this.imageDisplay = product.image;
-          // this.productsForm['image'].setValidators([]);
-          // this.productsForm['image'].updateValueAndValidity();
+          this.productsForm['image'].setValidators([]);
+          this.productsForm['image'].updateValueAndValidity();
 
         })
       }
@@ -82,7 +81,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     if(this.form.invalid){
       return;
     }
-    console.log("ttygothere")
+
     const product = {
       id: this.currentId,
       name:this.productsForm['name'].value,
@@ -96,6 +95,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
       countInStock:this.productsForm['countInStock'].value,
     }
     console.log(product.categoryId)
+    console.log(product)
 
     if(this.editMode){
       this._updateProduct(product)
@@ -128,7 +128,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
   }
 
   private _updateProduct(product:Product){
-    this.productsService.updateProduct(this.currentId,product).pipe(takeUntil(this.endsubs$)).subscribe(
+    this.productsService.updateProduct(this.currentId,product).subscribe(
       product =>{
         console.log(product)
         this.messageService.add({
@@ -153,9 +153,10 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     if(file){
       const fileReader = new FileReader();
       fileReader.onload = () =>{
-        // this.imageDisplay =  fileReader.result;
+        this.imageDisplay =  fileReader.result as string;
       }
       fileReader.readAsDataURL(file);
+      console.log(fileReader.result,file)
     }
   }
 

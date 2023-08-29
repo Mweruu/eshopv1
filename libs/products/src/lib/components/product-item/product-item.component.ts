@@ -32,7 +32,7 @@ export class ProductItemComponent {
     }
     this.cartService.setCartItem(cartItem)
     if(cartItem){
-      console.log(cartItem)
+      // console.log(cartItem)
       this.messageService.add({
         severity:'success',
         summary:`${cartItem.quantity} Item added to cart`,

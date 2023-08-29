@@ -16,9 +16,11 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/admin/tsconfig.app.json",
         "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-        "styles": ["apps/admin/src/styles.scss",
-                  "node_modules/quill/dist/quill.core.css",
-                  "node_modules/quill/dist/quill.snow.css"],
+        "styles": [
+          "apps/admin/src/styles.scss",
+          "node_modules/quill/dist/quill.core.css",
+          "node_modules/quill/dist/quill.snow.css"
+        ],
         "scripts": ["node_modules/quill/dist/quill.js"]
       },
       "configurations": {
@@ -26,8 +28,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1500kb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",

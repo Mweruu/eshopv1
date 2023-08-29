@@ -14,10 +14,13 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
 import { DropdownModule } from 'primeng/dropdown';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { ToastModule } from 'primeng/toast';
+import { AuthGuard } from '@eshop/users';
 
 export const routes: Routes = [
   { path: 'cart', component: CartPageComponent },
-  { path: 'checkout', component: CheckoutPageComponent },
+  { path: 'checkout',
+    canActivate:[AuthGuard],
+    component: CheckoutPageComponent },
   { path: 'success', component: ThankYouComponent },
 
 ];

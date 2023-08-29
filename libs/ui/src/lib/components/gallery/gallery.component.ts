@@ -7,23 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GalleryComponent implements OnInit{
   selectedImage!:string
-  //  = 'https://achs.edu/wp-content/uploads/2021/03/26749024_ml.jpg';
-
   @Input()
-  images: string[] = [
-    // 'https://achs.edu/wp-content/uploads/2021/03/26749024_ml.jpg',
-    // 'https://achs.edu/wp-content/uploads/2021/03/26749024_ml.jpg',
-    // 'https://achs.edu/wp-content/uploads/2021/03/26749024_ml.jpg',
-    // 'https://achs.edu/wp-content/uploads/2021/03/26749024_ml.jpg',
-    // 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg',
-    // 'https://achs.edu/wp-content/uploads/2021/03/26749024_ml.jpg',
-    // 'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg',
-    // 'https://achs.edu/wp-content/uploads/2021/03/26749024_ml.jpg',
+  images: string[] = [];
 
-  ];
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(){}
 
   ngOnInit(): void {
     if(this.hasImages){

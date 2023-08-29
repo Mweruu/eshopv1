@@ -16,7 +16,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
 
   constructor(private cartService:CartService,
-              private orderService:OrdersService,
+              private ordersService:OrdersService,
               private router:Router){
                 this.router.url.includes('checkout')? this.isCheckout = true : this.isCheckout=false
               }
@@ -31,7 +31,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       if (cart) {
           cart.items?.map((item) => {
             if (item.productId) {
-            this.orderService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
+            this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
               if(item.quantity){
                 // item.quantity * product.price
                 this.totalPrice += product.price * item.quantity

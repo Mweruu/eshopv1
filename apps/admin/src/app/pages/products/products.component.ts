@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product, ProductsService } from '@eshop/products';
+import { UsersService } from '@eshop/users';
 import { MessageService,ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -10,16 +11,16 @@ import { MessageService,ConfirmationService } from 'primeng/api';
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
-
+  userId!:string;
   constructor(private productsService:ProductsService,
               private messageService:MessageService,
               private confirmationService:ConfirmationService,
-              private router: Router
+              private router: Router,private usersService: UsersService
             ){}
 
   ngOnInit(): void {
     console.log('gothere')
-      this.getProducts()
+      this.getProducts();
   }
 
   getProducts(){

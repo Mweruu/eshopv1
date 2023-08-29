@@ -11,7 +11,8 @@ export class AuthGuard implements CanActivate{
               private localStorage:LocalstorageService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-    const token = this.localStorage.getToken()
+    const token = this.localStorage.getToken();
+    console.log('Token:', token);
 
     if(token){
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
@@ -26,7 +27,6 @@ export class AuthGuard implements CanActivate{
   }
 
   private _tokenExpired(expiration: number):boolean{
-    console.log("gh")
     return Math.floor(new Date().getTime()/1000) >= expiration
   }
 }

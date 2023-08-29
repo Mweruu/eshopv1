@@ -1,22 +1,22 @@
-export const ORDER_STATUS = {
+export const ORDER_STATUS:{ [key: number]: { label: string; color: string } }  = {
   0:{
-    label:'Pending',
-    color:'primary'
+    label:"Pending",
+    color:"primary"
   },
   1:{
-    label:'Processed',
-    color:'warning'
+    label:"Processed",
+    color:"warning"
   },
   2:{
-    label:'Shipped',
-    color:'warning'
+    label:"Shipped",
+    color:"warning"
   },
   3:{
-    label:'Delivered',
-    color:'success'
+    label:"Delivered",
+    color:"success"
   },
   4:{
-    label:'Rejected',
-    color:'danger'
+    label:"Rejected",
+    color:"danger"
   },
 }
