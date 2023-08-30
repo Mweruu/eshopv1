@@ -7,29 +7,29 @@ import { Order } from '../models/order';
   providedIn: 'root'
 })
 export class OrdersService {
-  apiUrl='http://localhost:3000/api/';
+  BASE_URL='http://localhost:3000/api/';
 
   constructor(private http: HttpClient) { }
 
   getOrders(): Observable<Order[]>{
-    return this.http.get<Order[]>(`${this.apiUrl}getorders`)
+    return this.http.get<Order[]>(`${this.BASE_URL}getorders`)
   }
   createOrder(order:Order): Observable<Order[]>{
-    return this.http.post<Order[]>(`${this.apiUrl}createorder` ,order)
+    return this.http.post<Order[]>(`${this.BASE_URL}createorder` ,order)
 
   }
   deleteOrder(orderId:string): Observable<Order>{
-    return this.http.delete<Order>(`${this.apiUrl}deleteorder/${orderId}`)
+    return this.http.delete<Order>(`${this.BASE_URL}deleteorder/${orderId}`)
   }
   getOrder(categoryId:string): Observable<Order>{
-    return this.http.get<Order>(`${this.apiUrl}getorder/${categoryId}`)
+    return this.http.get<Order>(`${this.BASE_URL}getorder/${categoryId}`)
   }
   updateOrder(categoryId:string, order:Order): Observable<Order>{
-    return this.http.put<Order>(`${this.apiUrl}updateorder/${categoryId}`, order)
+    return this.http.put<Order>(`${this.BASE_URL}updateorder/${categoryId}`, order)
   }
 
   getProduct(productId:string):Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}getproduct/${productId}`)
+    return this.http.get<any>(`${this.BASE_URL}getproduct/${productId}`)
   }
 
 

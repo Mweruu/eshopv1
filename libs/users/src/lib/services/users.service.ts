@@ -7,12 +7,23 @@ declare const require: (arg0: string) => countriesLib.LocaleData;
 import { UsersFacade } from '../+state/users.facade';
 
 // declare const require: (arg0: string) => countriesLib.LocaleData;
+// const env = process.env['NODE_ENV'];
+// const LOCAL_BASE_URL = 'http://localhost:3000/api/';
+// const PROD_BASE_URL = 'https://main--eshop-userside.netlify.app/';
+// let BASE_URL: string
+
+// if(env === 'production'){
+//   BASE_URL = PROD_BASE_URL;
+// }else{
+//   BASE_URL = LOCAL_BASE_URL;
+// }
+// console.log("environment", env)
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  apiUrl='http://localhost:3000/api/';
+  BASE_URL='http://localhost:3000/api/';
 
   constructor(private http: HttpClient,
               private usersFacade:UsersFacade
@@ -21,22 +32,22 @@ export class UsersService {
     }
 
   getUsers():Observable<User[]>{
-    return this.http.get<User[]>(`${this.apiUrl}getusers`)
+    return this.http.get<User[]>(`${this.BASE_URL}getusers`)
   }
 
   createUsers(user:User):Observable<User>{
-    return this.http.post<User>(`${this.apiUrl}createuser`, user)
+    return this.http.post<User>(`${this.BASE_URL}createuser`, user)
   }
 
   deleteUser(userId:string): Observable<User>{
-    return this.http.delete<User>(`${this.apiUrl}deleteuser/${userId}`)
+    return this.http.delete<User>(`${this.BASE_URL}deleteuser/${userId}`)
   }
 
   getUser(userId:string):Observable<User>{
-    return this.http.get<User>(`${this.apiUrl}getuser/${userId}`)
+    return this.http.get<User>(`${this.BASE_URL}getuser/${userId}`)
   }
   updateUser(userId:string, user:User):Observable<User>{
-    return this.http.put<User>(`${this.apiUrl}updateuser/${userId}`,user)
+    return this.http.put<User>(`${this.BASE_URL}updateuser/${userId}`,user)
   }
 
   // getCountries(){

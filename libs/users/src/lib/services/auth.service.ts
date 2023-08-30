@@ -7,11 +7,11 @@ import { User } from '../models/users';
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl='http://localhost:3000/api/';
+  BASE_URL='http://localhost:3000/api/';
 
   constructor(private http: HttpClient) { }
 
   login(email:string, password:string):Observable<User>{
-    return this.http.post<User>(`${this.apiUrl}login`, {email,password})
+    return this.http.post<User>(`${this.BASE_URL}login`, {email,password})
   }
 }
