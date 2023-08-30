@@ -15,7 +15,14 @@
         "main": "apps/e-shop/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/e-shop/tsconfig.app.json",
-        "assets": ["apps/e-shop/src/_redirects", "apps/e-shop/src/favicon.ico", "apps/e-shop/src/assets"],
+        "assets": [
+                    "apps/e-shop/src/favicon.ico",
+                    "apps/e-shop/src/assets",
+                    {
+                      "glob": "_redirects",
+                      "input": "src/",
+                      "output": "/"
+                  }],
         "styles": [
           "apps/e-shop/src/styles.scss",
           "node_modules/quill/dist/quill.core.css",
