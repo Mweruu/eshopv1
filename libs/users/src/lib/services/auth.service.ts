@@ -7,7 +7,8 @@ import { User } from '../models/users';
   providedIn: 'root'
 })
 export class AuthService {
-  BASE_URL='http://localhost:3000/api/';
+  // BASE_URL='http://localhost:3000/api/';
+  BASE_URL='https://eshopbackend-nrdd.onrender.com/'
 
   constructor(private http: HttpClient) { }
 
