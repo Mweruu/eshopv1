@@ -23,7 +23,8 @@ import { UsersFacade } from '../+state/users.facade';
   providedIn: 'root'
 })
 export class UsersService {
-  BASE_URL='http://localhost:3000/api/';
+  // BASE_URL='http://localhost:3000/api/';
+  BASE_URL='https://eshopbackend-nrdd.onrender.com/'
 
   constructor(private http: HttpClient,
               private usersFacade:UsersFacade
