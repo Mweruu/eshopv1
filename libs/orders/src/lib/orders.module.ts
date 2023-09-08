@@ -54,6 +54,7 @@ export class OrdersModule {
   }
 
   getOrders() {
-    return this.http.get('http://localhost:3000/api/getorders');
+    // return this.http.get('http://localhost:3000/api/getorders');
+    return this.http.get('https://eshopbackend-nrdd.onrender.com/api/getorders');
   }
 }
