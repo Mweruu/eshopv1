@@ -29,13 +29,6 @@ export const routes : Routes = [
     redirectTo:'',
     pathMatch:'full'
   }
-
-  {
-    path: '**',
-    redirectTo:'',
-    pathMatch:'full'
-  }
-
 ];
 
 @NgModule({
