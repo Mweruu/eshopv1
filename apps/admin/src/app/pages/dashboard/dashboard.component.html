@@ -2,36 +2,36 @@
   <p-card header="Dashboard" subheader="Latest Updates">
     <div class="grid">
       <div class="col-3">
-        <p-card styleClass="d-orders" routerLink="/users">
+        <p-card styleClass="d-orders" routerLink="/orders">
           <div class="d-item">
             <div>
               <i class="pi pi-briefcase"></i><br>
               <span class="name">Orders</span>
             </div>
-            <span class="number">45</span>
+            <span class="number">{{orders.length}}</span>
           </div>
         </p-card>
       </div>
 
       <div class="col-3">
-        <p-card styleClass="d-customers" routerLink="/products">
+        <p-card styleClass="d-customers" routerLink="/users">
           <div class="d-item">
             <div>
               <i class="pi pi-users"></i><br>
               <span class="name">Customers</span>
             </div>
-            <span class="number">667</span>
+            <span class="number">{{users.length}}</span>
           </div>
         </p-card>
       </div>
       <div class="col-3">
-        <p-card styleClass="d-products" routerLink="/categories">
+        <p-card styleClass="d-products" routerLink="/products">
           <div class="d-item">
             <div>
               <i class="pi pi-shopping-bag"></i><br>
               <span class="name">Products</span>
             </div>
-            <span class="number">12</span>
+            <span class="number">{{products.length}}</span>
           </div>
         </p-card>
       </div>
@@ -42,7 +42,7 @@
               <i class="pi pi-dollar"></i><br>
               <span class="name">Total Sales</span>
             </div>
-            <span class="number">{{'4356' |currency}}</span>
+            <span class="number">{{ totalSales |currency}}</span>
           </div>
         </p-card>
       </div>

@@ -11,6 +11,6 @@ export class SidebarComponent {
   constructor(private localStorage:LocalstorageService){}
 
   logOut(){
-    this.localStorage.removeToken()
+    this.localStorage.removeToken();
   }
 }

@@ -8,8 +8,19 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { WordLimitPipe } from './word-limit.pipe';
 
 @NgModule({
-  imports: [CommonModule, SplitButtonModule, ButtonModule],
-  declarations: [BannerComponent, GalleryComponent, WordLimitPipe],
-  exports: [BannerComponent, GalleryComponent, WordLimitPipe],
+  imports: [
+    CommonModule,
+    SplitButtonModule,
+    ButtonModule],
+
+  declarations: [
+    BannerComponent,
+    GalleryComponent,
+    WordLimitPipe],
+
+  exports: [
+    BannerComponent,
+    GalleryComponent,
+    WordLimitPipe],
 })
 export class UiModule {}

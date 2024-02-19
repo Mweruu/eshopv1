@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="product-actions">
-        <button pButton pRipple type="button" label="Buy Now" class="p-button-rounded mr-3"></button>
+        <button pButton pRipple type="button" label="Buy Now" class="p-button-rounded mr-3" (click)="addProductToCart()" routerLink="/cart"></button>
         <button pButton pRipple type="button" label="Add to Cart" class="p-button-rounded mr-2" (click)="addProductToCart()"></button>
       </div>
     </div>

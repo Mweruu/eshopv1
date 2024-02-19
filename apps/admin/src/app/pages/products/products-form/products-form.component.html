@@ -21,7 +21,7 @@
               icon="pi pi-arrow-circle-left"
               styleClass="p-button-secondary"
               class="mr-2"
-              routerLink="/categories"
+              routerLink="/products"
               ></p-button>
             </div>
           </p-toolbar>
@@ -70,8 +70,10 @@
             </div>
             <div class="formgrid grid">
               <div class="field col-12 md:col-5">
-                <label for="category">Category</label><br>
-                <p-dropdown formControlName="category" [options]="categories" optionLabel="name" optionValue="id" [filter]="true" filterBy="id" [showClear]="true" placeholder="Select a Category"></p-dropdown>
+                <label for="category">Category</label>
+                <div>
+                  <p-dropdown formControlName="category" [options]="categories" optionLabel="name" optionValue="id" [filter]="true" filterBy="id" [showClear]="true" placeholder="Select a Category"></p-dropdown>
+                </div>
                 <small *ngIf="productsForm['category'].invalid && isSubmitted" class="p-error">Category is required</small>
               </div>
               <div class="field col-12 md:col-5">
@@ -82,9 +84,11 @@
 
             <div class="formgrid grid">
               <div class="field col-12 md:col-5">
-                <label for="name">Main Image</label>
+                <div class="mb-2">
+                  <label for="name">Main Image</label>
+                </div>
                 <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)"/>
-                <small *ngIf="productsForm['image'].invalid && isSubmitted" class="p-error">Image is required</small>
+                <!-- <small *ngIf="productsForm['image'].invalid && isSubmitted" class="p-error">Image is required</small> -->
                 <div class="col-2 mt-2 pl-0">
                   <img style="width: 100%" [src]="imageDisplay" alt="" />
                 </div>
@@ -93,7 +97,7 @@
             <div class="formgrid grid">
               <div class="field col-10">
                 <label for="richDescription">Product Details</label>
-                <p-editor formControlName="richDescription" [style]="{ height: '320px' }"></p-editor>
+                <p-editor formControlName="richDescription" [style]="{ height: '320px' }" maxlength="1000000"></p-editor>
               </div>
             </div>
           </form>
