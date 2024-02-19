@@ -1,7 +1,7 @@
 import { Category } from "./category";
 
 export class Product {
-  id!: string;
+  id?: string;
   userId?:string;
   name?:string;
   price?:string;
@@ -11,7 +11,7 @@ export class Product {
   category?:Category;
   richDescription?:string;
   image?:string;
-  images?:string[];
+  images?:File[];
   isFeatured?:string;
   rating?:string;
   numReviews?: number;

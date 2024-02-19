@@ -15,6 +15,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { ToastModule } from 'primeng/toast';
 import { AuthGuard } from '@eshop/users';
+import { LoginComponent } from 'libs/users/src/lib/pages/login/login.component';
 
 export const routes: Routes = [
   { path: 'cart', component: CartPageComponent },
@@ -22,6 +23,8 @@ export const routes: Routes = [
     canActivate:[AuthGuard],
     component: CheckoutPageComponent },
   { path: 'success', component: ThankYouComponent },
+  { path: 'login', component: LoginComponent },
+
 
 ];
 
@@ -46,7 +49,11 @@ export const routes: Routes = [
     ThankYouComponent,
   ],
 
-  exports: [CartIconComponent, CartPageComponent, OrderSummaryComponent],
+  exports: [
+    CartIconComponent,
+    CartPageComponent,
+    OrderSummaryComponent],
+
 })
 export class OrdersModule {
   constructor(private http: HttpClient, cartService: CartService) {
@@ -54,6 +61,7 @@ export class OrdersModule {
   }
 
   getOrders() {
-    return this.http.get('http://localhost:3000/api/getorders');
+    return this.http.get('https://eshopbackend-nrdd.onrender.com/api/getorders');
+    // return this.http.get('http://localhost:3000/api/getorders');
   }
 }

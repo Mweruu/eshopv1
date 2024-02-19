@@ -72,6 +72,7 @@ export class CategoriesFormComponent implements OnInit,OnDestroy{
   private _createCategory(category:Category){
     this.categoriesService.createCategories(category).subscribe(
       category =>{
+        console.log("rtrtffg",category)
         this.messageService.add({
           severity:'success',
           summary:`Category ${category.name}  successfully created`,
@@ -100,7 +101,7 @@ export class CategoriesFormComponent implements OnInit,OnDestroy{
       console.log(category)
       this.messageService.add({
         severity:'success',
-        summary:`Category ${category.name} successfully updated`,
+        summary:`Category successfully updated`,
         });
 
     timer(3500).toPromise().then(()=>{

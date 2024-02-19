@@ -7,7 +7,8 @@ import { Order } from '../models/order';
   providedIn: 'root'
 })
 export class OrdersService {
-  BASE_URL='http://localhost:3000/api/';
+  BASE_URL='https://eshopbackend-nrdd.onrender.com/api/'
+  // 'http://localhost:3000/api/';
 
   constructor(private http: HttpClient) { }
 

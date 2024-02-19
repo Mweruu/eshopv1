@@ -25,6 +25,12 @@ export const routes : Routes = [
   { path: 'category/:categoryid', component: ProductsListComponent },
   { path: 'products/:productid', component: ProductPageComponent },
 
+  {
+    path: '**',
+    redirectTo:'',
+    pathMatch:'full'
+  }
+
 ];
 
 @NgModule({

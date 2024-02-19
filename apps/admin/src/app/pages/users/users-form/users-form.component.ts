@@ -91,6 +91,7 @@ export class UsersFormComponent implements OnInit{
       isAdmin:this.usersForm['isAdmin'].value
 
     }
+    console.log(user)
 
     if(this.editMode){
       this._updateUser(user);

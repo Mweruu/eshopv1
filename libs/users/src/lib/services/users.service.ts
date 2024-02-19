@@ -8,9 +8,12 @@ import { UsersFacade } from '../+state/users.facade';
 
 // declare const require: (arg0: string) => countriesLib.LocaleData;
 // const env = process.env['NODE_ENV'];
+// const env = 'production'
 // const LOCAL_BASE_URL = 'http://localhost:3000/api/';
-// const PROD_BASE_URL = 'https://main--eshop-userside.netlify.app/';
+// const PROD_BASE_URL = 'https://e-shop-backend2.netlify.app/api/';
+// const PROD_BASE_URL = 'https://eshopbackend-nrdd.onrender.com/api/';
 // let BASE_URL: string
+
 
 // if(env === 'production'){
 //   BASE_URL = PROD_BASE_URL;
@@ -23,7 +26,9 @@ import { UsersFacade } from '../+state/users.facade';
   providedIn: 'root'
 })
 export class UsersService {
-  BASE_URL='http://localhost:3000/api/';
+  // BASE_URL='http://localhost:3000/api/';
+  BASE_URL='https://eshopbackend-nrdd.onrender.com/api/'
+
 
   constructor(private http: HttpClient,
               private usersFacade:UsersFacade
