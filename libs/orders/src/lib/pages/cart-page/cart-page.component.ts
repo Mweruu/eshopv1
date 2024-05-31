@@ -31,7 +31,6 @@ export class CartPageComponent implements OnInit, OnDestroy{
       this.CartItemDetailed = [];
       this.cartCount = cart.items?.length ?? 0
       cart.items?.forEach(cartItem =>{
-        console.log("rrrr",cartItem,cartItem.productId)
         if (cartItem.productId) {
           this.ordersService.getProduct(cartItem.productId).subscribe(product =>{
             this.CartItemDetailed.push({
