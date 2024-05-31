@@ -16,14 +16,14 @@ export class AuthGuard implements CanActivate{
     console.log('Tokennn:', token);
 
     if(token){
-      console.log("ghfdt/login")
+      console.log("User is logged in")
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
       console.log("tokenDecode",tokenDecode)
       if(tokenDecode.isAdmin && !this._tokenExpired(tokenDecode.exp)){
-      return true
+        return true
       }
     }
-    console.log("/login")
+    console.log("/User is not logged in. Redirecting to login page.")
     // this.router.navigate(['/products'])
     this.router.navigate(['/login'])
     return false

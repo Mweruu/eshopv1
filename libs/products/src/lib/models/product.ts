@@ -4,7 +4,7 @@ export class Product {
   id?: string;
   userId?:string;
   name?:string;
-  price?:string;
+  price?:number;
   brand?:string;
   description?:string;
   countInStock?:string;

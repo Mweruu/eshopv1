@@ -42,13 +42,16 @@ export class DashboardComponent implements OnInit{
   }
 
   getUsers(){
+    console.log(this.users)
     this.userService.getUsers().subscribe((users) =>{
       this.users = users
     })
   }
 
   getProducts(){
+    console.log("dfdf1222222df", this.products)
     this.productService.getProducts().subscribe((products) =>{
+      console.log(products)
       this.products = products
     })
   }
