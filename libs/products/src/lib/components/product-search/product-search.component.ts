@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 interface Column {
@@ -13,6 +13,11 @@ interface Column {
 })
 export class ProductSearchComponent implements OnInit{
   filterMode = 'lenient';
+  searchText!: string;
+
+
+  @Output()
+  searchTextChanged:EventEmitter<string>=new EventEmitter<string>();
 
   filterModes = [
       { label: 'Lenient', value: 'lenient' },
@@ -32,5 +37,11 @@ export class ProductSearchComponent implements OnInit{
           { field: 'size', header: 'Size' },
           { field: 'type', header: 'Type' }
       ];
+  }
+
+  onSearchTextEntered(searchValue:string){
+    console.log(searchValue)
+    this.searchText =searchValue;
+    console.log(1,this.searchText)
   }
 }

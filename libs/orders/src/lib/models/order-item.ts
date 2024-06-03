@@ -1,4 +1,6 @@
 export class OrderItem{
-  product?:string;
+  productId?:string;
   quantity?:number;
+  order?:number;
+  user?:string;
 }

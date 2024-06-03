@@ -11,6 +11,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class OrdersComponent implements OnInit{
   orders:Order[] = [];
   orderStatus = ORDER_STATUS;
+  orderStatuses !: Array<{ id: number; name: string }>;
 
   constructor(private ordersService: OrdersService,
               private messageService:MessageService,
@@ -28,8 +29,26 @@ export class OrdersComponent implements OnInit{
     this.ordersService.getOrders().subscribe((orders)=>{
       console.log(orders);
       this.orders =orders
+      this.setOrderStatusName()
       console.log(this.orders)
     })
+  }
+
+  private setOrderStatusName() {
+    this.orders.forEach( order =>{
+      this.orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
+        const numericKey = parseInt(key, 10); // Parse the key as a number
+        return {
+          id: numericKey,
+          name: ORDER_STATUS[numericKey].label
+        };
+      });
+      if(order.status){
+        const orderStatusId = parseInt(order.status, 10);
+        const orderStatus = this.orderStatuses.find(status => status.id === orderStatusId);
+        order.status = orderStatus ? orderStatus?.name : '';
+      }
+    });
   }
 
   deleteOrder(orderId:string){

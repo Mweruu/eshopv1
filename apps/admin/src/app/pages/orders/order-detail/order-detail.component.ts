@@ -4,7 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { OrdersService, ORDER_STATUS } from '@eshop/orders';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
-
+import { OrderItem } from '../../../../../../../libs/orders/src/lib/models/order-item'
+import { OrderItemService } from '../../../../../../../libs/orders/src/lib/services/order-item.service'
+import { ProductsService } from '../../../../../../../libs/products/src/lib/services/products.service'
+import { Product } from 'libs/products/src/lib/models/product';
 
 @Component({
   selector: 'admin-order-detail',
@@ -16,17 +19,23 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
   currentId!:string;
   order!:any;
   selectedStatus:any;
-  orderStatuses : Array<{ id: number; name: string }> = [];
+  orderStatuses !: Array<{ id: number; name: string }>;
+  orderItems:OrderItem[]=[];
+  selectedOrderStatus!: number;
   endsubs$: Subject<any> = new Subject();
+  product!: Product
 
 
   constructor( private fb:FormBuilder,
                private ordersService: OrdersService,
                private messageService:MessageService,
+               private OrderItemService:OrderItemService,
+               private productsService:ProductsService,
                private activatedRoute:ActivatedRoute){}
 
   ngOnInit(): void {
-    this._mapOrderStatus();
+    console.log("init")
+    // this._mapOrderStatus();
     this ._getOrders();
     this.form = this.fb.group({
       shippingAddress1:['', Validators.required],
@@ -45,6 +54,7 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
   }
 
   private _mapOrderStatus() {
+    console.log("map", this.order, "this.order.status")
     this.orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
       const numericKey = parseInt(key, 10); // Parse the key as a number
       return {
@@ -53,25 +63,10 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
       };
     });
   }
-  // private _mapOrderStatus(){
-  //   // const arrayObject = Object.values(ORDER_STATUS);
-  //   // console.log(arrayObject);
-  //   // this.rr = arrayObject
-  //   this.orderStatuses = Object.keys(ORDER_STATUS).map((key)=>{
-  //     const numericKey = parseInt(key); // Convert key to a number
-
-  //     return{
-  //       id:numericKey,
-  //       name:ORDER_STATUS[numericKey].label
-  //     }
-  //   });
-  //   // console.log(arrayObject);
-  //   // this.orderStatuses = arrayObject
-  // }
 
   onStatusChange(event:any){
-   console.log("tytyy", event.value.name, this.currentId)
-   this.ordersService.updateOrder(this.currentId,{ status:event.value.name }).pipe(takeUntil(this.endsubs$)).subscribe(()=>{
+   console.log("tytyy",event.value,event, event.value.name, this.currentId)
+   this.ordersService.updateOrder(this.currentId,{ status:event.value }).pipe(takeUntil(this.endsubs$)).subscribe(()=>{
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
@@ -91,15 +86,37 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
 
   private _getOrders(){
     this.activatedRoute.params.subscribe(params=>{
+      console.log(params, params['id'])
       if(params['id']){
         this.currentId = params['id']
         this.ordersService.getOrder(this.currentId).pipe(takeUntil(this.endsubs$)).subscribe(order =>{
-          this.order = order
-          console.log (order)
-          this.selectedStatus = order.status;
-        })
+          this.order = order;
+          this._mapOrderStatus();
+          this.setOrderStatusName();
+          console.log(666, order, order.orderItems)
+          if(order.orderItems){
+            order.orderItems.forEach(item =>{
+              console.log(item, item.productId, item.quantity)
+              if(item.productId){
+                this.productsService.getProduct(item.productId).pipe(takeUntil(this.endsubs$)).subscribe(product =>{
+                  this.product = product
+                  console.log("rt8uy875", this.product)
+                })
+              }
+            })
+          }
+          // this.orderItems = order.orderItems
+        });
       }
-    })
+    });
+  }
+
+  private setOrderStatusName() {
+    const orderStatusId = parseInt(this.order.status, 10);
+    const orderStatus = this.orderStatuses.find(status => status.id === orderStatusId);
+    this.selectedStatus = orderStatus ? orderStatus?.name : '';
+    this.order.status = this.selectedStatus
+    console.log(this.selectedStatus, this.order)
   }
 
   ngOnDestroy() {

@@ -14,7 +14,8 @@
       <div class="product-price">
         {{product.price | currency}}
         <span class="price-before">
-          {{ product.price || 0 + 8 ||0 | currency }}
+          {{ (product.price || 0) + 50  | currency }}
+
         </span>
       </div>
       <p-divider></p-divider>
