@@ -36,6 +36,6 @@ export class UsersModule {
 
   getUsers() {
     return this.http.get('https://eshopbackend-nrdd.onrender.com/api//getusers');
-    // return this.http.get('http://localhost:3000/api/getusers');
+
   }
 }
