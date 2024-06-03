@@ -68,7 +68,7 @@ export class OrdersFormComponent implements OnInit{
       country:this.ordersForm['country'].value,
       phone:this.ordersForm['phone'].value,
       status:this.ordersForm['status'].value,
-      totalPrice:this.ordersForm['totalPrice'].value
+      totalPrice:this.ordersForm['totalPrice'].value,
 
     }
 

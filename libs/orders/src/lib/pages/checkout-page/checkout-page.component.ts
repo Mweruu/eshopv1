@@ -19,6 +19,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 })
 export class CheckoutPageComponent implements OnInit, OnDestroy{
   form!:FormGroup;
+  itemsForm!:FormGroup;
   isSubmitted = false;
   countries:any[] =[];
   orderItems:OrderItem[]=[];
@@ -48,6 +49,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
       country:['', Validators.required],
       zip:['', Validators.required],
     })
+
     this._getCartItems();
     this._getCountries();
     this._autofillUserData();
@@ -116,16 +118,16 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
             this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
               if(item.quantity){
                 console.log("_getOrderSummary", item, this.userId)
-                this.activatedRoute.params.subscribe((params) =>{
-                  if(params['id']){
-                    console.log(params['id'])
-                  }})
                 console.log(item.productId)
-                const orderItems = {
-                  quantity:item.quantity,
-                  product:item.productId,
+                this.itemsForm = this.fb.group({
+                  product:[item.productId, Validators.required],
+                  quantity:[item.quantity, Validators.required],
+                })
+                const orderItems:OrderItem = {
+                  productId:this.orderItemsForm['product'].value,
+                  quantity:this.orderItemsForm['quantity'].value
                 }
-                console.log(orderItems)
+                console.log("orderItems", orderItems)
                 this._createOrderItems(orderItems);
                 // item.quantity * product.price
                 // item.quantity * product.price
@@ -143,20 +145,20 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     console.log("_createCartItems", this.orderItems, orderItem)
     this.OrderItemService.createOrderItem(orderItem).subscribe(
       orderItem =>{
-        console.log(orderItem)
+        console.log("rueru", orderItem)
         this.messageService.add({
           severity:'success',
-          summary:'Order successfully created', });
+          summary:'Orderitem successfully created', });
 
           // timer(3500).toPromise().then(()=>{
           //   this.router.navigate(['/orders'])
           // })
 
       },error=>{
-        console.error("Failed to create order",error)
+        console.error("Failed to create orderitem",error)
         this.messageService.add({
           severity:'error',
-          summary:'Failed to create order'})
+          summary:'Failed to create orderitem'})
       }
       )
 
@@ -212,6 +214,10 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
 
   get usersForm(){
     return this.form.controls
+  }
+
+  get orderItemsForm(){
+    return this.itemsForm.controls
   }
 
   ngOnDestroy(): void {

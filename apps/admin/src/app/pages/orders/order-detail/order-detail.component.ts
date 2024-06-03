@@ -86,25 +86,27 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
 
   private _getOrders(){
     this.activatedRoute.params.subscribe(params=>{
+      console.log(params, params['id'])
       if(params['id']){
         this.currentId = params['id']
         this.ordersService.getOrder(this.currentId).pipe(takeUntil(this.endsubs$)).subscribe(order =>{
           this.order = order;
           this._mapOrderStatus();
           this.setOrderStatusName();
-          console.log(666, order, this.orderItems, this.currentId)
-
-        });
-        this.OrderItemService.getOrderItem(this.order.id).pipe(takeUntil(this.endsubs$)).subscribe((order)=>{
-          console.log(777, order, order?.product);
-          // for item in order
-          if(order.product){
-            this.productsService.getProduct(order.product).pipe(takeUntil(this.endsubs$)).subscribe(product =>{
-              this.product = product
-              console.log(this.product)
+          console.log(666, order, order.orderItems)
+          if(order.orderItems){
+            order.orderItems.forEach(item =>{
+              console.log(item, item.productId, item.quantity)
+              if(item.productId){
+                this.productsService.getProduct(item.productId).pipe(takeUntil(this.endsubs$)).subscribe(product =>{
+                  this.product = product
+                  console.log("rt8uy875", this.product)
+                })
+              }
             })
           }
-        })
+          // this.orderItems = order.orderItems
+        });
       }
     });
   }

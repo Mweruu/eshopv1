@@ -18,7 +18,7 @@ export class OrderItemService {
       return this.http.get<OrderItem[]>(`${this.BASE_URL}getorderitems`)
     }
     createOrderItem(orderItem:OrderItem): Observable<OrderItem[]>{
-      return this.http.post<OrderItem[]>(`${this.BASE_URL}createorderitem` ,OrderItem)
+      return this.http.post<OrderItem[]>(`${this.BASE_URL}createorderitem` ,orderItem)
     }
 
     getOrderItem(orderId:string): Observable<OrderItem>{
