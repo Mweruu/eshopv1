@@ -39,6 +39,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
               ){}
 
   ngOnInit(): void {
+    console.log("getordersummary")
     this.form = this.fb.group({
       name:['', Validators.required],
       email:this.emailControl,
@@ -117,20 +118,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
             if (item.productId) {
             this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
               if(item.quantity){
-                console.log("_getOrderSummary", item, this.userId)
-                console.log(item.productId)
-                this.itemsForm = this.fb.group({
-                  product:[item.productId, Validators.required],
-                  quantity:[item.quantity, Validators.required],
-                })
-                const orderItems:OrderItem = {
-                  productId:this.orderItemsForm['product'].value,
-                  quantity:this.orderItemsForm['quantity'].value
-                }
-                console.log("orderItems", orderItems)
-                this._createOrderItems(orderItems);
-                // item.quantity * product.price
-                // item.quantity * product.price
                 this.totalPrice += product.price * item.quantity
               }
               });
@@ -149,11 +136,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
         this.messageService.add({
           severity:'success',
           summary:'Orderitem successfully created', });
-
-          // timer(3500).toPromise().then(()=>{
-          //   this.router.navigate(['/orders'])
-          // })
-
       },error=>{
         console.error("Failed to create orderitem",error)
         this.messageService.add({
@@ -168,12 +150,10 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     console.log("gothere")
     this.isSubmitted = true;
     if(this.form.invalid || this.totalPrice <= 0){
+      console.log("invalid", this.form, this.totalPrice)
         return;
     }
-    console.log(888)
-    console.log(this.userId)
-
-    const order: Order = {
+    const order = {
       orderItems: this.orderItems,
       shippingAddress1: this.usersForm['street'].value,
       shippingAddress2: this.usersForm['apartment'].value,
@@ -182,15 +162,49 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
       country: this.usersForm['country'].value,
       phone: this.usersForm['phone'].value,
       status: 'Pending',
-      // status: 0,
+      // status: '0',
       userId: this.userId,
       totalPrice:this.totalPrice,
       dateOrdered: `${Date.now()}`
     };
 
     this.ordersService.createOrder(order).subscribe(
-      () => {
-      console.log(order, order.id)
+      (response:any) => {
+        const order = response.order;
+        console.log("64t6rguyrffgj", order, order.id)
+        this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe(cart =>{
+          this.totalPrice = 0;
+          if (cart) {
+            console.log("cart",cart)
+              cart.items?.map((item) => {
+                if (item.productId) {
+                this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
+                  if(item.quantity){
+                    console.log("_getOrderSummary", item, this.userId, order)
+                    this.itemsForm = this.fb.group({
+                      product:[item.productId, Validators.required],
+                      quantity:[item.quantity, Validators.required],
+                      user:[this.userId],
+                      order:[order.id]
+                    })
+                    const orderItems:OrderItem = {
+                      productId:this.orderItemsForm['product'].value,
+                      quantity:this.orderItemsForm['quantity'].value,
+                      orderId:this.orderItemsForm['order'].value,
+                      userId:this.orderItemsForm['user'].value,
+                    }
+                    console.log("orderItems", orderItems)
+                    this._createOrderItems(orderItems);
+                    // item.quantity * product.price
+                    // item.quantity * product.price
+                    this.totalPrice += product.price * item.quantity
+                  }
+                  });
+                }
+              });
+          }
+        })
+
 
         //redirect to thank you page // payment
         this.cartService.emptyCart();
