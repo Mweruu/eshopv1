@@ -25,7 +25,6 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
   endsubs$: Subject<any> = new Subject();
   product!: Product;
   products:Product[]=[];
-  // productArray !: Array<{ products: Product; quantity: number }>;
   productArray: { products: Product; quantity: number; subtotal: number }[] = [];
   totalPrice!:number;
 
@@ -69,7 +68,6 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
   }
 
   onStatusChange(event:any){
-   console.log("tytyy",event.value,event, event.value.name, this.currentId)
    this.ordersService.updateOrder(this.currentId,{ status:event.value }).pipe(takeUntil(this.endsubs$)).subscribe(()=>{
       this.messageService.add({
         severity: 'success',
@@ -97,24 +95,20 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
           this.order = order;
           this._mapOrderStatus();
           this.setOrderStatusName();
-          console.log(666, order, order.orderItems)
           if(order.orderItems){
             order.orderItems.forEach(item =>{
-              console.log(item, item.productId, item.quantity)
               if(item.productId){
                 this.productsService.getProduct(item.productId).pipe(takeUntil(this.endsubs$)).subscribe(product =>{
                   this.product =product
-                  console.log("rt8uy875", this.product.price ,item.quantity)
                   this.products.push(product)
                   if(item.quantity && product.price){
                     this.productArray.push({ products: product, quantity: item.quantity, subtotal: (product.price* item.quantity)});
                   }
-                  console.log("66tyghghuy", this.products, this.productArray, product.price)
+                  console.log(this.productArray)
                 })
               }
             })
           }
-          // this.orderItems = order.orderItems
         });
       }
     });
@@ -125,11 +119,9 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
     const orderStatus = this.orderStatuses.find(status => status.id === orderStatusId);
     this.selectedStatus = orderStatus ? orderStatus?.name : '';
     this.order.status = this.selectedStatus
-    console.log(this.selectedStatus, this.order)
   }
 
   ngOnDestroy() {
-    // this.endsubs$.next();
     this.endsubs$.complete();
   }
 }

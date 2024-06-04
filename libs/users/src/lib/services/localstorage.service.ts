@@ -10,7 +10,6 @@ export class LocalstorageService {
 
 
   setToken(data: any){
-    console.log('auth',data);
     localStorage.setItem(TOKEN, data)
   }
 

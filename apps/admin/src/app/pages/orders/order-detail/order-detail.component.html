@@ -41,7 +41,7 @@
       <div class="formgrid grid mb-5" *ngFor="let item of productArray">
         <div class="col-2">{{item.products.name}}</div>
         <div class="col-2">{{item.products.brand}}</div>
-        <div class="col-2">{{item.products.category}}</div>
+        <div class="col-2">{{item.products.category?.name}}</div>
         <div class="col-2">{{item.products.price}}</div>
         <div class="col-2">{{item.quantity}}</div>
         <div class="col-2"> {{item.subtotal}}</div>

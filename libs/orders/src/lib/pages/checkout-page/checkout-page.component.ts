@@ -129,6 +129,9 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
 
 
   private _createOrderItems(orderItem:OrderItem){
+    if(this.itemsForm.invalid){
+      return;
+    }
     console.log("_createCartItems", this.orderItems, orderItem)
     this.OrderItemService.createOrderItem(orderItem).subscribe(
       orderItem =>{
@@ -185,7 +188,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
                       product:[item.productId, Validators.required],
                       quantity:[item.quantity, Validators.required],
                       user:[this.userId],
-                      order:[order.id]
+                      order:[order.id, Validators.required]
                     })
                     const orderItems:OrderItem = {
                       productId:this.orderItemsForm['product'].value,

@@ -13,17 +13,13 @@ export class AuthGuard implements CanActivate{
 // export declare interface CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
     const token = this.localStorage.getToken();
-    console.log('Tokennn:', token);
 
     if(token){
-      console.log("User is logged in")
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
-      console.log("tokenDecode",tokenDecode)
       if(tokenDecode.isAdmin && !this._tokenExpired(tokenDecode.exp)){
         return true
       }
     }
-    console.log("/User is not logged in. Redirecting to login page.")
     // this.router.navigate(['/products'])
     this.router.navigate(['/login'])
     return false

@@ -61,10 +61,7 @@ export class ProductsListComponent implements OnInit{
   categoryFilter(){
     const selectedCategories = this.categories.filter((category) => category.checked)
     .map((category) => category.id);
-    console.log("categories",this.categories)
-    console.log("selectedCategories",selectedCategories );
     // this._getProducts(selectedCategories);
-
     this.productsService.getProductbycatId(selectedCategories).subscribe((products) =>{
       this.products = products;
       console.log(products)

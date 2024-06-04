@@ -86,7 +86,6 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     this.imageDataService.setuploadPictureData(this.uploadedFiles);
 
     const images :File[] = this.imageDataService.getuploadPictureData();
-    console.log(8888888,images)
     this.isSubmitted = true
     if(this.form.invalid){
       console.log(this.form.value)

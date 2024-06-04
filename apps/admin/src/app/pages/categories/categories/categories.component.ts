@@ -26,13 +26,10 @@ export class CategoriesComponent implements OnInit,OnDestroy{
   private _getCategories(){
     this.categoriesService.getCategories().pipe(takeUntil(this.endSubs$)).subscribe((categories)=>{
       this.categories =categories;
-      console.log(this.categories)
-
     })
   }
 
   deleteCategory(categoryId:string){
-    console.log("deleteCategory")
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
@@ -65,7 +62,6 @@ export class CategoriesComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
-    console.log("destroyed")
       this.endSubs$.complete()
   }
 }
