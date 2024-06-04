@@ -23,7 +23,11 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
   orderItems:OrderItem[]=[];
   selectedOrderStatus!: number;
   endsubs$: Subject<any> = new Subject();
-  product!: Product
+  product!: Product;
+  products:Product[]=[];
+  // productArray !: Array<{ products: Product; quantity: number }>;
+  productArray: { products: Product; quantity: number; subtotal: number }[] = [];
+  totalPrice!:number;
 
 
   constructor( private fb:FormBuilder,
@@ -99,8 +103,13 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
               console.log(item, item.productId, item.quantity)
               if(item.productId){
                 this.productsService.getProduct(item.productId).pipe(takeUntil(this.endsubs$)).subscribe(product =>{
-                  this.product = product
-                  console.log("rt8uy875", this.product)
+                  this.product =product
+                  console.log("rt8uy875", this.product.price ,item.quantity)
+                  this.products.push(product)
+                  if(item.quantity && product.price){
+                    this.productArray.push({ products: product, quantity: item.quantity, subtotal: (product.price* item.quantity)});
+                  }
+                  console.log("66tyghghuy", this.products, this.productArray, product.price)
                 })
               }
             })

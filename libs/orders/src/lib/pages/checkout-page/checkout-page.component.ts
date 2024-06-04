@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '@eshop/users';
 import { OrderItem } from '../../models/order-item';
-import { Order } from '../../models/order';
+// import { Order } from '../../models/order';
 import { CartService } from '../../services/cart.service';
 import { OrderItemService } from '../../services/order-item.service';
 import { Cart } from '../../models/cart';
