@@ -152,13 +152,11 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
       zip: this.usersForm['zip'].value,
       country: this.usersForm['country'].value,
       phone: this.usersForm['phone'].value,
-      status: 'Pending',
-      // status: '0',
+      status: '0',
       userId: this.userId,
       totalPrice:this.totalPrice,
       dateOrdered: `${Date.now()}`
     };
-
     this.ordersService.createOrder(order).subscribe(
       (response:any) => {
         const order = response.order;
@@ -172,7 +170,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
                     this.itemsForm = this.fb.group({
                       product:[item.productId, Validators.required],
                       quantity:[item.quantity, Validators.required],
-                      user:[this.userId],
+                      user:[order.userId, Validators.required],
                       order:[order.id, Validators.required]
                     })
                     const orderItems:OrderItem = {
