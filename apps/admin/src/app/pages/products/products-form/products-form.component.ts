@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product, ProductsService, Category, CategoriesService } from '@eshop/products';
 import { MessageService } from 'primeng/api';
@@ -23,6 +23,9 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
   endsubs$: Subject<any> = new Subject();
   userId!:string;
   uploadedFiles: any[] = [];
+  imageForm!:FormGroup;
+  file:any;
+  imageUploaded = false;
 
   constructor( private fb:FormBuilder,
               private productsService:ProductsService,
@@ -43,10 +46,12 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
       description:['', Validators.required],
       category:['', Validators.required],
       richDescription:[''],
-      image:[''],
       isFeatured:[false],
 
     });
+    this.imageForm= this.fb.group({
+      images: new FormControl(),
+    })
     this._getCategories();
     this._checkEditMode();
   }
@@ -63,23 +68,41 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
         this.editMode = true;
         this.currentId = params['id']
         this.productsService.getProduct(this.currentId).pipe(takeUntil(this.endsubs$)).subscribe(product=>{
-          this.productsForm['name'].setValue(product.name);
-          // this.productsForm['userId'].setValue(product.userId);
-          this.productsForm['description'].setValue(product.description);
-          this.productsForm['price'].setValue(product.price);
-          this.productsForm['brand'].setValue(product.brand);
-          this.productsForm['countInStock'].setValue(product.countInStock);
-          this.productsForm['richDescription'].setValue(product.richDescription);
-          this.productsForm['category'].setValue(product.category?.id);
-          this.productsForm['image'].setValue(product.image);
-          this.productsForm['isFeatured'].setValue(product.isFeatured);
-          // this.imageDisplay = product?.image;
-          // this.productsForm['image'].setValidators([]);
-          // this.productsForm['image'].updateValueAndValidity();
-
+          // this.productsForm['name'].setValue(product.name);
+          // this.productsForm['description'].setValue(product.description);
+          // this.productsForm['price'].setValue(product.price);
+          // this.productsForm['brand'].setValue(product.brand);
+          // this.productsForm['countInStock'].setValue(product.countInStock);
+          // this.productsForm['richDescription'].setValue(product.richDescription);
+          // this.productsForm['category'].setValue(product.category?.id);
+          // this.productsForm['image'].setValue(product.image);
+          // this.productsForm['isFeatured'].setValue(product.isFeatured);
+          // this.imageUpload['images'].setValue(product.images)
+          this.form.patchValue({
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            brand: product.brand,
+            countInStock: product.countInStock,
+            richDescription: product.richDescription,
+            category: product.category?.id,
+            isFeatured: product.isFeatured
+          });
+          this.imageUpload['images'].setValue(product.images);
         })
       }
     })
+  }
+
+  onImageUpload(event: any){
+    try {
+      this.uploadedFiles.push(...event.files);
+      this.file = event.files[0];
+      this.imageUploaded = true;
+      this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: `${event.files.length} Image(s) uploaded` });
+    } catch (err) {
+      this.messageService.add({ severity: 'danger', summary: 'Image(s) Upload Failed', detail: `Failed to upload Images` });
+    }
   }
 
   onSubmit(){
@@ -88,8 +111,6 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     const images :File[] = this.imageDataService.getuploadPictureData();
     this.isSubmitted = true
     if(this.form.invalid){
-      console.log(this.form.value)
-      console.log("gotherinvalid")
       return;
     }
     console.log("gother",this.productsForm)
@@ -102,33 +123,33 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
 
     if(token){
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
-      console.log("tokenDecode",tokenDecode.userId)
       this.userId = tokenDecode.userId
     }
 
-    const product = {
-      userId:this.userId,
-      name:this.productsForm['name'].value,
-      brand:this.productsForm['brand'].value,
-      description:this.productsForm['description'].value,
-      price:this.productsForm['price'].value,
-      images:this.imageDataService.getuploadPictureData(),
-      isFeatured:this.productsForm['isFeatured'].value,
-      categoryId:this.productsForm['category'].value,
-      richDescription:this.productsForm['richDescription'].value,
-      countInStock:this.productsForm['countInStock'].value,
+    const productsData = new FormData();
+    productsData.append("userId", this.userId);
+    productsData.append("brand", this.productsForm['brand'].value);
+    productsData.append("name", this.productsForm['name'].value);
+    productsData.append("description", this.productsForm['description'].value);
+    productsData.append("price", this.productsForm['price'].value);
+    productsData.append("isFeatured", this.productsForm['isFeatured'].value);
+    productsData.append("categoryId", this.productsForm['category'].value);
+    productsData.append("richDescription", this.productsForm['richDescription'].value);
+    productsData.append("countInStock", this.productsForm['countInStock'].value);
+    for (let i = 0; i < images.length; i++) {
+      productsData.append('images', images[i]);
     }
-    console.log(product.categoryId)
-    console.log(product)
+
+    console.log(productsData, this.productsForm['price'].value, this.productsForm['category'].value)
 
     if(this.editMode){
-      this._updateProduct(product)
+      this._updateProduct(productsData)
     }else{
-      this._createProduct(product)
+      this._createProduct(productsData)
     }
   }
 
-  private _createProduct(product:Product){
+  private _createProduct(product: FormData){
     this.productsService.createProducts(product).pipe(takeUntil(this.endsubs$)).subscribe(
      ( product:Product )=>{
         console.log(product)
@@ -151,7 +172,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
       );
   }
 
-  private _updateProduct(product:Product){
+  private _updateProduct(product:FormData){
     this.productsService.updateProduct(this.currentId,product).subscribe(
       product =>{
         console.log(product)
@@ -171,21 +192,11 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
       );
   }
 
-  onImageUpload(event: any){
-    console.log(event.target.files[0].name)
-    const file = event.target.files[0];
-    if(file){
-      const fileReader = new FileReader();
-      fileReader.onload = () =>{
-        this.imageDisplay =  fileReader.result as string;
-      }
-      fileReader.readAsDataURL(file);
-      console.log("ffd",file)
-    }
-  }
-
   get productsForm(){
     return this.form.controls
+  }
+  get imageUpload(){
+    return this.imageForm.controls;
   }
 
   ngOnDestroy() {

@@ -87,11 +87,27 @@
                 <div class="mb-2">
                   <label for="name">Main Image</label>
                 </div>
-                <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)"/>
+                <p-fileUpload
+                  name="demo[]"
+                  url="https://www.primefaces.org/cdn/api/upload.php"
+                  (onUpload)="onImageUpload($event)"
+                  [multiple]="true"
+                  accept="image/*"
+                  >
+                  <ng-template pTemplate="content">
+                      <ul *ngIf="uploadedFiles.length">
+                          <li *ngFor="let file of uploadedFiles">
+                              {{ file.name }} - {{ file.size }} bytes
+                          </li>
+                      </ul>
+                  </ng-template>
+                </p-fileUpload>
+
+                <!-- <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)"/> -->
                 <!-- <small *ngIf="productsForm['image'].invalid && isSubmitted" class="p-error">Image is required</small> -->
-                <div class="col-2 mt-2 pl-0">
+                <!-- <div class="col-2 mt-2 pl-0">
                   <img style="width: 100%" [src]="imageDisplay" alt="" />
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="formgrid grid">

@@ -18,7 +18,7 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.BASE_URL}getproducts`)
   }
 
-  createProducts(product:Product):Observable<Product>{
+  createProducts(product:FormData):Observable<Product>{
     return this.http.post<Product>(`${this.BASE_URL}createproducts`, product)
   }
 
@@ -34,7 +34,7 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.BASE_URL}getproducts/${categoryId}`)
   }
 
-  updateProduct(productId:string ,product:Product):Observable<Product>{
+  updateProduct(productId:string ,product:FormData):Observable<Product>{
     return this.http.put<Product>(`${this.BASE_URL}updateproduct/${productId}`, product)
   }
 }

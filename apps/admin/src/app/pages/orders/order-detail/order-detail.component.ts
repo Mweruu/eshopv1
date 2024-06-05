@@ -37,8 +37,6 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
                private activatedRoute:ActivatedRoute){}
 
   ngOnInit(): void {
-    console.log("init")
-    // this._mapOrderStatus();
     this ._getOrders();
     this.form = this.fb.group({
       shippingAddress1:['', Validators.required],
@@ -57,7 +55,6 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
   }
 
   private _mapOrderStatus() {
-    console.log("map", this.order, "this.order.status")
     this.orderStatuses = Object.keys(ORDER_STATUS).map((key) => {
       const numericKey = parseInt(key, 10); // Parse the key as a number
       return {
@@ -88,7 +85,6 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
 
   private _getOrders(){
     this.activatedRoute.params.subscribe(params=>{
-      console.log(params, params['id'])
       if(params['id']){
         this.currentId = params['id']
         this.ordersService.getOrder(this.currentId).pipe(takeUntil(this.endsubs$)).subscribe(order =>{
@@ -104,7 +100,6 @@ export class OrderDetailComponent implements OnInit,OnDestroy{
                   if(item.quantity && product.price){
                     this.productArray.push({ products: product, quantity: item.quantity, subtotal: (product.price* item.quantity)});
                   }
-                  console.log(this.productArray)
                 })
               }
             })

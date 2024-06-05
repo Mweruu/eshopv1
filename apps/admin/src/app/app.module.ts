@@ -38,6 +38,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UiModule } from '@eshop/ui';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 const UX_MODULE = [
@@ -50,6 +51,7 @@ const UX_MODULE = [
   ConfirmDialogModule,
   ColorPickerModule,
   InputSwitchModule,
+  FileUploadModule,
   DropdownModule,
   EditorModule,
   TagModule,
