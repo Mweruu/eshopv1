@@ -21,14 +21,11 @@ import { ToastModule } from 'primeng/toast';
 import { OrdersModule } from '@eshop/orders';
 
 export const routes : Routes = [
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
   { path: 'products', component: ProductsListComponent },
   { path: 'category/:categoryid', component: ProductsListComponent },
   { path: 'products/:productid', component: ProductPageComponent },
-  {
-    path: '**',
-    redirectTo:'',
-    pathMatch:'full'
-  },
+  { path: '**', redirectTo:'products', pathMatch:'full' },
 
 ];
 

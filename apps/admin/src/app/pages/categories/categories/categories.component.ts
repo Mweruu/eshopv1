@@ -36,7 +36,6 @@ export class CategoriesComponent implements OnInit,OnDestroy{
       icon: 'pi pi-info-circle',
       accept: () => {
         this.categoriesService.deleteCategory(categoryId).subscribe((response)=>{
-          console.log(response)
           this._getCategories();
           this.messageService.add({
             severity:'success',

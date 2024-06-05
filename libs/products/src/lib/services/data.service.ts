@@ -10,7 +10,6 @@ export class DataService {
   //assign uploadPictureData
   setuploadPictureData(data: any){
     this.uploadPictureData = data;
-    console.log(data)
   }
   //To get uploadPictureData
   getuploadPictureData(){

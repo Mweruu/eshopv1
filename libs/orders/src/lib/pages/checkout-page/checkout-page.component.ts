@@ -39,7 +39,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
               ){}
 
   ngOnInit(): void {
-    console.log("getordersummary")
     this.form = this.fb.group({
       name:['', Validators.required],
       email:this.emailControl,
@@ -61,11 +60,9 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
 
   private _autofillUserData(){
     this.usersService.observeCurrentUser().pipe(takeUntil(this.endSubs$)).subscribe(user =>{
-      console.log(user)
       if(user){
         if(user?.id){
           this.userId = user.id
-        console.log("userid", this.userId)
         }
         this.usersForm['name'].setValue(user.name);
         this.usersForm['email'].setValue(user.email);
@@ -89,14 +86,11 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
   }
 
   private _getCartItems(){
-    console.log(this.userId)
     const cart: Cart = this.cartService.getCartItem();
     this.orderItems = this.orderItems = cart.items?.map((item) => ({
       product: item.productId || "",
       quantity: item.quantity || 0,
     })) as OrderItem[];
-
-
     // cart.items?.map((item) =>{
     //   return{
     //     product:item.productId,
@@ -104,7 +98,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     //   }
     // })
 
-    console.log(this.orderItems)
   }
 
 
@@ -113,7 +106,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe(cart =>{
       this.totalPrice = 0;
       if (cart) {
-        console.log("cart",cart)
           cart.items?.map((item) => {
             if (item.productId) {
             this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
@@ -132,10 +124,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     if(this.itemsForm.invalid){
       return;
     }
-    console.log("_createCartItems", this.orderItems, orderItem)
     this.OrderItemService.createOrderItem(orderItem).subscribe(
       orderItem =>{
-        console.log("rueru", orderItem)
         this.messageService.add({
           severity:'success',
           summary:'Orderitem successfully created', });
@@ -150,10 +140,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
   }
 
   placeOrder(){
-    console.log("gothere")
     this.isSubmitted = true;
     if(this.form.invalid || this.totalPrice <= 0){
-      console.log("invalid", this.form, this.totalPrice)
         return;
     }
     const order = {
@@ -174,16 +162,13 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     this.ordersService.createOrder(order).subscribe(
       (response:any) => {
         const order = response.order;
-        console.log("64t6rguyrffgj", order, order.id)
         this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe(cart =>{
           this.totalPrice = 0;
           if (cart) {
-            console.log("cart",cart)
               cart.items?.map((item) => {
                 if (item.productId) {
                 this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
                   if(item.quantity){
-                    console.log("_getOrderSummary", item, this.userId, order)
                     this.itemsForm = this.fb.group({
                       product:[item.productId, Validators.required],
                       quantity:[item.quantity, Validators.required],
@@ -196,10 +181,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
                       orderId:this.orderItemsForm['order'].value,
                       userId:this.orderItemsForm['user'].value,
                     }
-                    console.log("orderItems", orderItems)
                     this._createOrderItems(orderItems);
-                    // item.quantity * product.price
-                    // item.quantity * product.price
                     this.totalPrice += product.price * item.quantity
                   }
                   });

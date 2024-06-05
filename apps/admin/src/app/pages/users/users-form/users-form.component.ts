@@ -55,7 +55,6 @@ export class UsersFormComponent implements OnInit{
         this.editMode = true;
         this.currentId = params['id']
         this.usersService.getUser(this.currentId).subscribe(user =>{
-          console.log(user)
           this.usersForm['name'].setValue(user.name)
           this.usersForm['email'].setValue(user.email)
           this.usersForm['phone'].setValue(user.phone)
@@ -91,8 +90,6 @@ export class UsersFormComponent implements OnInit{
       isAdmin:this.usersForm['isAdmin'].value
 
     }
-    console.log(user)
-
     if(this.editMode){
       this._updateUser(user);
     }else{
@@ -105,7 +102,6 @@ export class UsersFormComponent implements OnInit{
   private _createUser(user:User){
     this.usersService.createUsers(user).subscribe(
       user =>{
-        console.log(user)
         this.messageService.add({
           severity:'success',
           summary:'User successfully created', });
@@ -124,7 +120,6 @@ export class UsersFormComponent implements OnInit{
   private _updateUser(user:User){
     this.usersService.updateUser(this.currentId,user).subscribe(
       user =>{
-        console.log(user)
         this.messageService.add({
           severity:'success',
           summary:'User successfully updated', });

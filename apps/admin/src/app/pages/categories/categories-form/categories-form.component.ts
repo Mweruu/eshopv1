@@ -96,7 +96,6 @@ export class CategoriesFormComponent implements OnInit,OnDestroy{
 
   private _updateCategory(category:Category){
     this.categoriesService.updateCategory(this.currentId,category).pipe(takeUntil(this.endsubs$)).subscribe(category=>{
-      console.log(category)
       this.messageService.add({
         severity:'success',
         summary:`Category successfully updated`,

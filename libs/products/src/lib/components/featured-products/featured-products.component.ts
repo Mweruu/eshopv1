@@ -17,8 +17,6 @@ export class FeaturedProductsComponent implements OnInit{
       this.productsService.getProducts().subscribe(products =>{
         this.products = products
         this.featuredProducts = products.filter(product => product.isFeatured);
-        console.log("Featured products:", this.featuredProducts);
-        console.log( this.featuredProducts)
       });
   }
 }

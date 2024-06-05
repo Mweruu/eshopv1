@@ -20,7 +20,6 @@ import { UsersFacade } from '../+state/users.facade';
 // }else{
 //   BASE_URL = LOCAL_BASE_URL;
 // }
-// console.log("environment", env)
 
 @Injectable({
   providedIn: 'root'
@@ -54,16 +53,6 @@ export class UsersService {
   updateUser(userId:string, user:User):Observable<User>{
     return this.http.put<User>(`${this.BASE_URL}updateuser/${userId}`,user)
   }
-
-  // getCountries(){
-  //   console.log(countriesLib.getNames("en", {select: "official"})); // { 'AF': 'Afghanistan', 'AL': 'Albania', [...], 'ZM': 'Zambia', 'ZW': 'Zimbabwe' }
-  //   return Object.entries(countriesLib.getNames("en", {select: "official"})).map((entry) => {
-  //     return{
-  //       id:entry[0],
-  //       name:entry[1]
-  //     }
-  //   })
-  // }
 
   getCountries(): { id: string; name: string }[] {
     return Object.entries(countriesLib.getNames('en', { select: 'official' })).map((entry) => {

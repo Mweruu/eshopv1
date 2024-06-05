@@ -25,19 +25,16 @@ export class UsersComponent implements OnInit{
   getUsers(){
     this.usersService.getUsers().subscribe((users)=>{
       this.users= users
-      console.log(this.users)
     })
   }
 
   deleteUser(userId:string){
-    console.log("deleteuser")
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
     this.usersService.deleteUser(userId).subscribe((response)=>{
-      console.log(response)
       this.getUsers();
       this.messageService.add({
         severity:'success',

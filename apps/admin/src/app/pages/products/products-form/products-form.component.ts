@@ -68,16 +68,6 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
         this.editMode = true;
         this.currentId = params['id']
         this.productsService.getProduct(this.currentId).pipe(takeUntil(this.endsubs$)).subscribe(product=>{
-          // this.productsForm['name'].setValue(product.name);
-          // this.productsForm['description'].setValue(product.description);
-          // this.productsForm['price'].setValue(product.price);
-          // this.productsForm['brand'].setValue(product.brand);
-          // this.productsForm['countInStock'].setValue(product.countInStock);
-          // this.productsForm['richDescription'].setValue(product.richDescription);
-          // this.productsForm['category'].setValue(product.category?.id);
-          // this.productsForm['image'].setValue(product.image);
-          // this.productsForm['isFeatured'].setValue(product.isFeatured);
-          // this.imageUpload['images'].setValue(product.images)
           this.form.patchValue({
             name: product.name,
             description: product.description,
@@ -88,6 +78,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
             category: product.category?.id,
             isFeatured: product.isFeatured
           });
+          this.imageUpload['images'].setValue(product.image);
           this.imageUpload['images'].setValue(product.images);
         })
       }
@@ -113,14 +104,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     if(this.form.invalid){
       return;
     }
-    console.log("gother",this.productsForm)
-    // const productFormData = new FormData();
-    // Object.keys(this.productsForm).map((key) => {
-    //   productFormData.append(key, this.productsForm[key].value);
-    // });
     const token = this.localStorage.getToken();
-    console.log('Token:', token);
-
     if(token){
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
       this.userId = tokenDecode.userId
@@ -139,9 +123,6 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     for (let i = 0; i < images.length; i++) {
       productsData.append('images', images[i]);
     }
-
-    console.log(productsData, this.productsForm['price'].value, this.productsForm['category'].value)
-
     if(this.editMode){
       this._updateProduct(productsData)
     }else{
@@ -152,7 +133,6 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
   private _createProduct(product: FormData){
     this.productsService.createProducts(product).pipe(takeUntil(this.endsubs$)).subscribe(
      ( product:Product )=>{
-        console.log(product)
         this.messageService.add({
           severity:'success',
           summary:'success',
@@ -175,7 +155,6 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
   private _updateProduct(product:FormData){
     this.productsService.updateProduct(this.currentId,product).subscribe(
       product =>{
-        console.log(product)
         this.messageService.add({
           severity:'success',
           summary:'Product successfully updated', });

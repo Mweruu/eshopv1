@@ -39,11 +39,8 @@ export class LoginComponent implements OnInit{
       password:this.loginForm['password'].value
     }
     this.authService.login(loginData.email, loginData.password).subscribe(user =>{
-      console.log(user);
       this.authError = false
       this.localStorage.setToken(user.token)
-      console.log(this.localStorage.getToken())
-
       this.router.navigate(['/'])
 
     },(error:HttpErrorResponse)=>{

@@ -19,26 +19,22 @@ export class ProductsComponent implements OnInit {
             ){}
 
   ngOnInit(): void {
-    console.log('gothere')
       this.getProducts();
   }
 
   getProducts(){
     this.productsService.getProducts().subscribe((products)=>{
       this.products = products;
-      console.log(this.products)
     })
   }
 
   deleteProduct(productId:string){
-    console.log("deleteproduct")
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
     this.productsService.deleteProduct(productId).subscribe((response)=>{
-      console.log(response)
       this.getProducts();
       this.messageService.add({
         severity:'success',
