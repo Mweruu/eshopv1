@@ -39,7 +39,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UiModule } from '@eshop/ui';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { MenuModule } from 'primeng/menu';
 
 const UX_MODULE = [
   CardModule,
@@ -56,7 +56,8 @@ const UX_MODULE = [
   EditorModule,
   TagModule,
   InputMaskModule,
-  FieldsetModule
+  FieldsetModule,
+  MenuModule
 ];
 
 @NgModule({

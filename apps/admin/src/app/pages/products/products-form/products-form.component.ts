@@ -19,7 +19,8 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
   isSubmitted = false;
   products: Product[] = [];
   categories :Category[] = [];
-  imageDisplay!:string | ArrayBuffer;
+  // imageDisplay!:string | ArrayBuffer;
+  imageDisplay:string[] = [];
   endsubs$: Subject<any> = new Subject();
   userId!:string;
   uploadedFiles: any[] = [];
@@ -78,6 +79,9 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
             category: product.category?.id,
             isFeatured: product.isFeatured
           });
+          // if(product.images){
+          //   this.imageDisplay = product.images
+          // }
           this.imageUpload['images'].setValue(product.image);
           this.imageUpload['images'].setValue(product.images);
         })

@@ -16,3 +16,28 @@
     padding: 20px;
   }
 }
+@media (max-width: 600px) {
+  .login-register{
+    background: linear-gradient(235deg, #0b0b0f, #454b8f);
+    height: 100vh;
+    &-panel{
+      width: 510px;
+      height: 525px;
+      background-color: var(--surface-a);
+      position: absolute;
+      left: calc(50% - 325px);
+      top:calc(50% - 262px);
+
+    }
+    &-grid1{
+      background: linear-gradient(235deg, #565867, #565974);
+      height: 70vh;
+      padding: 20px;
+    }
+
+    img{
+      width: 270px;
+      height: 525px;
+    }
+  }
+}

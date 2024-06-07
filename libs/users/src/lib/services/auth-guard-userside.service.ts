@@ -6,17 +6,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate{
+export class AuthGuardUsersideService  implements CanActivate{
 
   constructor(private router:Router,
               private localStorage:LocalstorageService) { }
 // export declare interface CanActivate {
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
+  canActivate(route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
     const token = this.localStorage.getToken();
 
     if(token){
       const tokenDecode = JSON.parse(atob(token.split('.')[1]));
-      if(tokenDecode.isAdmin && !this._tokenExpired(tokenDecode.exp)){
+      if(!this._tokenExpired(tokenDecode.exp)){
         return true
       }
     }
@@ -29,3 +31,5 @@ export class AuthGuard implements CanActivate{
     return Math.floor(new Date().getTime()/1000) >= expiration
   }
 }
+
+

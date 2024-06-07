@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { Router } from '@angular/router';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'eshop-login',
@@ -23,10 +24,10 @@ export class LoginComponent implements OnInit{
               private router:Router){}
 
   ngOnInit(): void {
-      this.LoginFormData = this.fb.group({
-        email:['',[Validators.required,Validators.email]],
-        password: ['', Validators.required]
-      })
+    this.LoginFormData = this.fb.group({
+      email:['',[Validators.required,Validators.email]],
+      password: ['', Validators.required]
+    })
   }
 
   onSubmit(){
@@ -38,10 +39,13 @@ export class LoginComponent implements OnInit{
       email:this.loginForm['email'].value,
       password:this.loginForm['password'].value
     }
-    this.authService.login(loginData.email, loginData.password).subscribe(user =>{
-      this.authError = false
-      this.localStorage.setToken(user.token)
-      this.router.navigate(['/'])
+    this.authService.login(loginData.email, loginData.password).subscribe(
+      user =>{
+        this.authError = false
+        timer(3500).toPromise().then(()=>{
+          this.localStorage.setToken(user.token)
+          this.router.navigate(['/'])
+        })
 
     },(error:HttpErrorResponse)=>{
       this.authError = true;

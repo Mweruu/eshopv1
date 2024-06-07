@@ -4,21 +4,34 @@ import { HttpClient } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromUsers from './+state/users.reducer';
 import { UsersEffects } from './+state/users.effects';
 import { UsersFacade } from './+state/users.facade';
+import { UserDetailsComponent } from './pages/user-details/user-details.component'
 
-export const routes: Routes = [{ path: 'login', component: LoginComponent }];
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
+import { SignupComponent } from './pages/signup/signup.component';
+import { DropdownModule } from 'primeng/dropdown';
+
+
+export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     InputTextModule,
+    DividerModule,
+    CardModule,
+    DropdownModule,
     ButtonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -26,10 +39,10 @@ export const routes: Routes = [{ path: 'login', component: LoginComponent }];
     EffectsModule.forFeature([UsersEffects]),
   ],
 
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, UserDetailsComponent, SignupComponent],
 
   providers: [UsersFacade],
-  exports:[LoginComponent]
+  exports:[LoginComponent, UserDetailsComponent, SignupComponent]
 })
 export class UsersModule {
   constructor(private http: HttpClient) {}

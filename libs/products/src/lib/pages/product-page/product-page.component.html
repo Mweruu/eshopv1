@@ -2,8 +2,8 @@
 <div class="product-page">
   <div class="grid">
     <div class="col-6" *ngIf="product">
-      <eshop-ui-gallery ></eshop-ui-gallery>
-      <!-- <eshop-ui-gallery [images]="product.images"></eshop-ui-gallery> -->
+      <!-- <eshop-ui-gallery ></eshop-ui-gallery> -->
+      <eshop-ui-gallery *ngIf="product.images" [images]="product.images"></eshop-ui-gallery>
     </div>
     <div class="col-6 product" *ngIf="product">
       <h2 class="product-name">{{product.name}}</h2>
@@ -15,7 +15,6 @@
         {{product.price | currency}}
         <span class="price-before">
           {{ (product.price || 0) + 50  | currency }}
-
         </span>
       </div>
       <p-divider></p-divider>
