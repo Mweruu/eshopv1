@@ -79,11 +79,12 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
             category: product.category?.id,
             isFeatured: product.isFeatured
           });
-          // if(product.images){
-          //   this.imageDisplay = product.images
-          // }
-          this.imageUpload['images'].setValue(product.image);
-          this.imageUpload['images'].setValue(product.images);
+          if(product.images){
+            this.imageDisplay = product.images
+          }
+          // this.imageUpload['images'].setValue(product.image);
+          // this.imageUpload['images'].setValue(product.images);
+          console.log(this.imageDisplay, product.image, product.images)
         })
       }
     })

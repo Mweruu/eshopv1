@@ -20,3 +20,35 @@ header{
     padding-top: 25px;
   }
 }
+
+
+@media (max-width: 600px) {
+  header{
+    margin-bottom : 30px;
+
+    .logo{
+      img{
+        width: 300px;
+      }
+    }
+    .tools{
+      padding-top: 38px;
+
+      .pi{
+        margin-right: 10px;
+      }
+    }
+    .search{
+      padding-top:25px ;
+    }
+    .navigation{
+      padding-top: 25px;
+      .nav{
+        a{
+        font-size: 2em;
+        font-weight: 700;
+        }
+      }
+    }
+  }
+}

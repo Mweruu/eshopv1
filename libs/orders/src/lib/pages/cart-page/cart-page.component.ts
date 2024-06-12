@@ -16,6 +16,7 @@ export class CartPageComponent implements OnInit, OnDestroy{
   CartItemDetailed : CartItemDetailed[] = [];
   cartCount = 0;
   subtotal!:number;
+  isUpdating = false;
 
   constructor(private router:Router,
               private cartService:CartService,
@@ -53,11 +54,12 @@ export class CartPageComponent implements OnInit, OnDestroy{
   }
 
   updateCartItemQuantity(event:any, cartItem:CartItemDetailed){
+    this.isUpdating = true;
     this.cartService.setCartItem({
       productId:cartItem.product.id,
       quantity:event.value
-
     }, true)
+    this.isUpdating = false;
   }
 
   ngOnDestroy(): void {

@@ -13,9 +13,9 @@
         <label [for]="category.id">{{ category.name }}</label>
       </div>
     </div>
-    <div [ngClass]="{'col-9': !isCategoryPage , 'col-12':isCategoryPage}">
+    <div [ngClass]="{'col-9 lg:col-9': !isCategoryPage , 'col-12 lg:col-12':isCategoryPage}">
       <div class="grid" *ngIf="products">
-        <div  [ngClass]="{'col-4': !isCategoryPage , 'col-3':isCategoryPage}" *ngFor="let product of products">
+        <div  [ngClass]="{'col:4 lg:col-4': !isCategoryPage , 'col:6 lg:col-3':isCategoryPage}" *ngFor="let product of products">
           <eshop-product-item [product]="product"></eshop-product-item>
         </div>
       </div>

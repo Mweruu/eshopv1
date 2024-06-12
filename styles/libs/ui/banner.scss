@@ -46,7 +46,7 @@
 
 @media (max-width: 600px) {
   .banner{
-    height: 280px;
+    height: 520px;
     width: 100%;
     background-color: #D7EFFB;
     border-radius: 15px;
@@ -57,13 +57,13 @@
 
       h1{
       margin-top: 0;
-      font-size: 3em;
+      font-size: 5em;
       font-weight: 400;
       }
 
       h2{
         margin-top: 0;
-        font-size: 2em;
+        font-size: 4em;
         font-weight: 300;
       }
 
@@ -78,8 +78,14 @@
       background-color: var(--surface-0);
       color: $primary-color;
       border: 0;
-      border-radius: 13px;
-      height: 50px;
+      border-radius: 23px;
+      height: 80px;
+      font-size: 3em;
+      .pi{
+        font-size: 0.8em;
+
+      }
+
 
       &:enabled:hover{
         background-color: var(--surface-0);

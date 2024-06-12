@@ -52,6 +52,19 @@
 
 
 @media (max-width: 600px) {
+  .products-page{
+    h4{
+      font-size: 3em;
+    }
+    label{
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    p-checkbox{
+      font-size: 4em;
+      margin-bottom: 20px;
+    }
+  }
   .product{
     &-name{
       font-size: 4em;

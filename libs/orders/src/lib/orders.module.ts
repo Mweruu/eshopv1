@@ -18,6 +18,8 @@ import { AuthGuardUsersideService } from '@eshop/users';
 import { LoginComponent } from 'libs/users/src/lib/pages/login/login.component';
 import { UserDetailsComponent } from 'libs/users/src/lib/pages/user-details/user-details.component';
 import { SignupComponent } from 'libs/users/src/lib/pages/signup/signup.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 export const routes: Routes = [
   { path: 'cart', component: CartPageComponent },
@@ -37,6 +39,8 @@ export const routes: Routes = [
     BadgeModule,
     ButtonModule,
     InputNumberModule,
+    ProgressSpinnerModule,
+    ProgressBarModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     FormsModule,

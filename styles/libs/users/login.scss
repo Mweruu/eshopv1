@@ -21,12 +21,12 @@
     background: linear-gradient(235deg, #0b0b0f, #454b8f);
     height: 100vh;
     &-panel{
-      width: 510px;
+      width: 890px;
       height: 525px;
       background-color: var(--surface-a);
       position: absolute;
-      left: calc(50% - 325px);
-      top:calc(50% - 262px);
+      left: calc(50% - 25px);
+      top:calc(50% - 62px);
 
     }
     &-grid1{
@@ -34,9 +34,17 @@
       height: 70vh;
       padding: 20px;
     }
+    p, h2, h1{
+      font-size: 2em;
+    }
+
+    p-button{
+      font-size: 3em;
+    }
+
 
     img{
-      width: 270px;
+      width: 380px;
       height: 525px;
     }
   }
