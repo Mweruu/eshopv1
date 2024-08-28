@@ -25,8 +25,8 @@
 }
 .d-products{
   background: #74ebd5;
-  background: -webkit-linear-gradient(to right, #74ebd5, #5464af);
-  background: linear-gradient(to right, #74ebd5, #5464af);
+  background: -webkit-linear-gradient(to right,#3c5be7, #74ebd5);
+  background: linear-gradient(to right,  #3c5be7, #74ebd5);
 
 }
 .d-customers{
@@ -36,7 +36,34 @@
 }
 .d-sales{
   background: #74ebd5;
-  background: -webkit-linear-gradient(to right, #74ebd5, #4764e2);
-  background: linear-gradient(to right, #74ebd5, #4764e2);
+  background: -webkit-linear-gradient(to right, #4764e2, #74ebd5);
+  background: linear-gradient(to right,  #4764e2, #74ebd5);
+
+}
+
+@media (max-width: 600px) {
+
+  .admin-page{
+    width: 100%;
+  }
+  .d-item{
+    display: flex;
+    text-align: center;
+    color: white;
+    justify-content: space-between;
+    width: 100%;
+    .pi{
+      font-size: 2em;
+      margin-bottom: 15px;
+    }
+    .name{
+      font-size: 1.0em;
+    }
+    .number{
+      margin-top: 50px;
+      font-size: 1.5em;
+      // float: right;
+    }
+  }
 
 }

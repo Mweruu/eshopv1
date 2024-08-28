@@ -24,7 +24,7 @@
         </div>
         <div class="field col-12 md:col-5 lg:col-4">
           <h5>Order Total Price</h5>
-          <p>{{order.totalPrice | currency}}</p>
+          <p>{{order.totalPrice | currency : "KES"}}</p>
         </div>
       </div>
     </p-fieldset>
@@ -38,21 +38,13 @@
         <div class="col-2">Quantity</div>
         <div class="col-2">subtotal</div>
       </div>
-      <div class="formgrid grid mb-5" >
-        <!-- *ngFor="let orderItem of order.orderItems" -->
-        <!-- <div class="col-2">{{product.name}}</div>
-        <div class="col-2">{{product.brand}}</div>
-        <div class="col-2">{{product.category}}</div>
-        <div class="col-2">{{product.price}}</div>
-        <div class="col-2">{{order.quantity}}</div> -->
-
-        <!-- <div class="col-2">{{totalPrice}}</div> -->
-        <!-- <div class="col-2">orderItem.product.name</div>
-        <div class="col-2">orderItem.product.brand</div>
-        <div class="col-2">orderItem.product.category</div>
-        <div class="col-2">orderItem.product.price</div>
-        <div class="col-2">orderItem.product.quantity</div>
-        <div class="col-2">orderItem.product.subtotal</div> -->
+      <div class="formgrid grid mb-5" *ngFor="let item of productArray">
+        <div class="col-2">{{item.products.name}}</div>
+        <div class="col-2">{{item.products.brand}}</div>
+        <div class="col-2">{{item.products.category?.name}}</div>
+        <div class="col-2">{{item.products.price}}</div>
+        <div class="col-2">{{item.quantity}}</div>
+        <div class="col-2"> {{item.subtotal}}</div>
       </div>
       <div class="formgrid grid mb-5 text-green-700 font-bold">
         <div class="col-2 col-offset-8">Total Price</div>

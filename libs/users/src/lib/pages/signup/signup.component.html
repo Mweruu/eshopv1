@@ -6,8 +6,8 @@
       </div>
       <div class="col-6 p-5">
         <h2>Welcome!</h2>
-        <h1>Login Page</h1>
-        <form [formGroup] = "LoginFormData">
+        <h1>Sign Up Page</h1>
+        <form [formGroup] = "SignupFormData">
           <div class="grid mt-6">
             <div class="col-12">
               <div class="p-inputgroup">
@@ -16,9 +16,9 @@
                 </span>
                 <input pInputText formControlName="email" placeholder="Email" />
               </div>
-                <small *ngIf="LoginFormData.invalid && isSubmitted" class="p-error">
-                  <span *ngIf="loginForm['email'].errors?.['required']" class="p-error">Email is required</span>
-                  <span *ngIf="loginForm['email'].errors?.['email']" class="p-error">Email is invalid</span>
+                <small *ngIf="SignupFormData.invalid && isSubmitted" class="p-error">
+                  <span *ngIf="signupForm['email'].errors?.['required']" class="p-error">Email is required</span>
+                  <span *ngIf="signupForm['email'].errors?.['email']" class="p-error">Email is invalid</span>
                 </small>
             </div>
             <div class="col-12">
@@ -28,18 +28,19 @@
                 </span>
                 <input pInputText formControlName="password" placeholder="Password" />
               </div>
-              <small *ngIf="LoginFormData.invalid && isSubmitted" class="p-error">Password is required</small>
+              <small *ngIf="SignupFormData.invalid && isSubmitted" class="p-error">Password is required</small>
 
             </div>
             <div class="col-12">
-              <p-button label="Submit" styleClass="w-full" (click)="onSubmit()"></p-button>
+              <p-button label="Create Account" styleClass="w-full" (click)="onSubmit()"></p-button>
             </div>
             <div class="col-12"  *ngIf="isSubmitted && authError">
               <small class="p-error">{{authMessage}}</small>
             </div>
           </div>
         </form>
-        <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+        <p>Already an account? <a routerLink="/login">Login</a></p>
+
       </div>
     </div>
   </div>

@@ -17,7 +17,6 @@ ngOnInit(): void {
 
   })
 
-    // console.log(this.cartService.getCartItem().items)
     // this.cartCount = this.cartService.getCartItem().items?.length || 0
 }
 

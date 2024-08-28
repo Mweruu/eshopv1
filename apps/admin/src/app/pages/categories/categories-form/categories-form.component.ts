@@ -40,7 +40,6 @@ export class CategoriesFormComponent implements OnInit,OnDestroy{
         this.editMode = true
         this.currentId = params['id']
         this.categoriesService.getCategory(this.currentId).subscribe(category =>{
-          console.log(category.id)
             this.categoriesForm['name'].setValue(category.name),
             this.categoriesForm['icon'].setValue(category.icon)
             this.categoriesForm['color'].setValue(category.color)
@@ -72,7 +71,6 @@ export class CategoriesFormComponent implements OnInit,OnDestroy{
   private _createCategory(category:Category){
     this.categoriesService.createCategories(category).subscribe(
       category =>{
-        console.log("rtrtffg",category)
         this.messageService.add({
           severity:'success',
           summary:`Category ${category.name}  successfully created`,
@@ -98,7 +96,6 @@ export class CategoriesFormComponent implements OnInit,OnDestroy{
 
   private _updateCategory(category:Category){
     this.categoriesService.updateCategory(this.currentId,category).pipe(takeUntil(this.endsubs$)).subscribe(category=>{
-      console.log(category)
       this.messageService.add({
         severity:'success',
         summary:`Category successfully updated`,

@@ -84,7 +84,6 @@ export class OrdersFormComponent implements OnInit{
   private _createOrder(order:Order){
     this.ordersService.createOrder(order).subscribe(
       order =>{
-        console.log(order)
         this.messageService.add({
           severity:'success',
           summary:'Order successfully created', });
@@ -105,7 +104,6 @@ export class OrdersFormComponent implements OnInit{
   private _updateOrder(order:Order){
     this.ordersService.updateOrder(this.currentId,order).subscribe(
       order =>{
-        console.log(order)
         this.messageService.add({
           severity:'success',
           summary:'Order successfully updated', });

@@ -10,6 +10,8 @@
       <div class="cart-shipping mb-5">
         Shipping after the payment, Delivery time : 1 to 4 working days
       </div>
+      <!-- <p-progressBar *ngIf="isUpdating" mode="indeterminate" [style]="{ height: '6px' }" />
+      <p-progressSpinner *ngIf="isUpdating"  ariaLabel="loading" /> -->
       <div class="cart-item mb-5" *ngFor="let cartItem of CartItemDetailed">
         <div class="grid p-fluid">
           <div class="col-2 cart-item-image">
@@ -20,7 +22,7 @@
               {{cartItem.product.name}}
             </div>
             <div class="cart-item-price">
-              {{cartItem.product.price |currency}}
+              {{cartItem.product.price |currency : "KES"}}
             </div>
             <div class="cart-item-remove">
               <p-button icon="pi pi-trash" styleClass="p-button-danger " (onClick)="deleteCartItem(cartItem)"></p-button>
@@ -43,7 +45,7 @@
             <div class="cart-item-subtotal">
               Subtotal:
               <span class="cart-item-subtotal-value" *ngIf="cartItem?.product?.price && cartItem?.quantity">
-                {{ (cartItem?.product?.price || 0) * (cartItem?.quantity || 0) | currency }}
+                {{ (cartItem?.product?.price || 0) * (cartItem?.quantity || 0) | currency : "KES"}}
               </span>
             </div>
           </div>

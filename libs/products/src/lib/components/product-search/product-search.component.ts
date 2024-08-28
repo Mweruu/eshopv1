@@ -40,8 +40,6 @@ export class ProductSearchComponent implements OnInit{
   }
 
   onSearchTextEntered(searchValue:string){
-    console.log(searchValue)
     this.searchText =searchValue;
-    console.log(1,this.searchText)
   }
 }

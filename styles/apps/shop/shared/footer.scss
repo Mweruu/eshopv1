@@ -17,3 +17,36 @@ footer{
     }
   }
 }
+
+
+@media (max-width: 600px) {
+  footer{
+    background-color: var(--yellow-100);
+    margin-top: 25px;
+    min-height: 50px;
+    padding: 10px 25px;
+    width: 100%;
+
+    .footer-wrapper {
+      align-items: center;
+      p{
+        font-size: 3.0em;
+      }
+      .social {
+        margin-top: 15px;
+        text-align: right;
+        .nav {
+          justify-content: flex-end;
+          .pi{
+            font-size: 3.5em;
+          }
+        }
+      }
+    }
+    .admin{
+      p{
+        font-size: 3em;
+      }
+    }
+  }
+}

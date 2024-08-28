@@ -29,7 +29,6 @@ export class ProductsListComponent implements OnInit{
         this.currentCatId = [params['categoryid']];
         this.productsService.getProductbycatId(this.currentCatId).subscribe((products) =>{
           this.products = products;
-          console.log(this.currentCatId,products)
         })
       }else{
         this.isCategoryPage = false;
@@ -42,7 +41,6 @@ export class ProductsListComponent implements OnInit{
   private _getProducts(categoriesFilter: string[] = []){
     this.productsService.getProductbycatId(categoriesFilter).subscribe((products) =>{
       this.products = products;
-      console.log(products)
     })
 
 
@@ -61,13 +59,9 @@ export class ProductsListComponent implements OnInit{
   categoryFilter(){
     const selectedCategories = this.categories.filter((category) => category.checked)
     .map((category) => category.id);
-    console.log("categories",this.categories)
-    console.log("selectedCategories",selectedCategories );
     // this._getProducts(selectedCategories);
-
     this.productsService.getProductbycatId(selectedCategories).subscribe((products) =>{
       this.products = products;
-      console.log(products)
     })
 
   }

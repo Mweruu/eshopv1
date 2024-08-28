@@ -11,7 +11,8 @@ export class Product {
   category?:Category;
   richDescription?:string;
   image?:string;
-  images?:File[];
+  images?:string[];
+  // images?:File[];
   isFeatured?:string;
   rating?:string;
   numReviews?: number;

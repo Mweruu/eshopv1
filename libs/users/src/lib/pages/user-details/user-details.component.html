@@ -1,0 +1,81 @@
+<div class="user-details">
+  <h1>Profile</h1>
+  <p>Your personal information</p>
+  <p-card header="Personal information">
+    <p-divider />
+    <div class="p-grid">
+      <div class="p-col-12">
+      <form [formGroup]="form">
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-5">
+                <label for="name">Name</label>
+                <input id="name" type="text" formControlName="name" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['name'].invalid && isSubmitted" class="p-error">Name is required</small>
+              </div>
+            <div class="field col-12 md:col-5">
+                <label for="email">Email</label>
+                <input id="email" type="text" formControlName="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['email'].invalid && isSubmitted" class="p-error">
+                  <span *ngIf="usersForm['email']?.errors?.['required']" class="p-error">Email is required</span>
+                  <span *ngIf="usersForm['email']?.errors?.['email']" class="p-error">Email is invalid</span>
+                </small>
+              </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-5">
+                <label for="phone">Phone</label>
+                <!-- <p-inputMask mask="+222 1234567" formControlName="phone" placeholder="+254 712 345 678"></p-inputMask> -->
+                <input id="phone" type="text" formControlName="phone" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['phone'].invalid && isSubmitted" class="p-error">Phone is required</small>
+              </div>
+            <div class="field col-12 md:col-5">
+                <label for="password">Password</label>
+                <input id="password" type="text" formControlName="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['password'].invalid && isSubmitted" class="p-error">Password is required</small>
+              </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-5">
+                <label for="street">Street</label>
+                <input id="street" type="text" formControlName="street" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['street'].invalid && isSubmitted" class="p-error">Street is required</small>
+            </div>
+            <div class="field col-12 md:col-5">
+                <label for="country">Country</label><br>
+                <p-dropdown [options]="countries" formControlName="country" optionLabel="name" optionValue="name" [filter]="true" filterBy="name" [showClear]="true"  [editable]="true" placeholder="Select a Country"></p-dropdown><br>
+                <small *ngIf="usersForm['country'].invalid && isSubmitted" class="p-error">Country is required</small>
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-5">
+                <label for="apartment">Apartment</label>
+                <input id="apartment" type="text" formControlName="apartment" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['apartment'].invalid && isSubmitted" class="p-error">Apartment is required</small>
+            </div>
+            <div class="field col-12 md:col-5">
+                <label for="zip">Zip</label>
+                <input id="zip" type="text" formControlName="zip" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['zip'].invalid && isSubmitted" class="p-error">Zip is required</small>
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field col-12 md:col-5">
+                <label for="city">City</label>
+                <input id="city" type="text" formControlName="city" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <small *ngIf="usersForm['city'].invalid && isSubmitted" class="p-error">City is required</small>
+            </div>
+          </div>
+      </form>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-5">
+          <button pButton pRipple label="Edit User" class="p-button-secondary" (click)="onSubmit()"> </button>
+        </div>
+        <div class="field col-12 md:col-5">
+          <!-- <p>Once you delete your user, there is no going back. Please be certain.</p> -->
+          <button pButton pRipple label="Delete User" class="p-button-danger" (click)="deleteUser(userId)"> </button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </p-card>
+</div>

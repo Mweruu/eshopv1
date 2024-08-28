@@ -30,28 +30,22 @@ export class DashboardComponent implements OnInit{
     this.totalSales = 0;
     this.ordersService.getOrders().subscribe((orders)=>{
       this.orders =orders;
-      console.log(this.orders);
       for(const order of this.orders){
-        console.log(order.totalPrice);
         if(order.totalPrice !== undefined){
           this.totalSales += order.totalPrice * 1;
-          console.log(this.totalSales);
         }
       }
     });
   }
 
   getUsers(){
-    console.log(this.users)
     this.userService.getUsers().subscribe((users) =>{
       this.users = users
     })
   }
 
   getProducts(){
-    console.log("dfdf1222222df", this.products)
     this.productService.getProducts().subscribe((products) =>{
-      console.log(products)
       this.products = products
     })
   }

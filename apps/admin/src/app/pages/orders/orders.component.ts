@@ -21,16 +21,12 @@ export class OrdersComponent implements OnInit{
 
   ngOnInit(): void {
       this.getOrders();
-      const arrayObject = Object.values(ORDER_STATUS);
-      console.log(arrayObject)
   }
 
   getOrders(){
     this.ordersService.getOrders().subscribe((orders)=>{
-      console.log(orders);
       this.orders =orders
       this.setOrderStatusName()
-      console.log(this.orders)
     })
   }
 
@@ -52,14 +48,12 @@ export class OrdersComponent implements OnInit{
   }
 
   deleteOrder(orderId:string){
-    console.log("deleteorder")
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
     this.ordersService.deleteOrder(orderId).subscribe((response)=>{
-      console.log(response)
       this.getOrders()
       this.messageService.add({
         severity:'success',

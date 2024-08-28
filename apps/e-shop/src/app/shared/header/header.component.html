@@ -5,15 +5,33 @@
         <img src="../../../assets/images/logo.png" alt="logo" routerLink="/">
       </div>
     </div>
-    <div class="col-4 search">
+    <div class="col-2 lg:col-4 search">
       <eshop-product-search></eshop-product-search>
     </div>
-    <div class="col-3 col-offset-1 navigation">
-      <eshop-nav></eshop-nav>
+    <div class="col-5 lg:col-3 col-offset-1 navigation">
+      <!-- <eshop-nav></eshop-nav> -->
+      <ul class="nav">
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/products">Product</a></li>
+        <li *ngIf="!username" ><a routerLink="/login">Contact</a></li>
+        <li *ngIf="username" (click)="logOut()"><a routerLink="">Logout</a></li>
+        <li  *ngIf="username"> <a routerLink="/user">{{username}}</a></li>
+        <li *ngIf="!username">
+          <i class="pi pi-user p-text-secondary" style="font-size: 1.5rem;"></i>
+        </li>
+      </ul>
     </div>
     <div class="col-1 tools">
-      <i class="pi pi-user p-text-secondary" style="font-size: 1.5rem;"></i>
       <eshop-cart-icon></eshop-cart-icon>
+
+      <!-- <ul class="nav">
+        <li  *ngIf="username" >
+          <div (click)="getUser(userId)"><h3>{{username}}</h3></div>
+        </li>
+        <li *ngIf="!username">
+          <i class="pi pi-user p-text-secondary" style="font-size: 1.5rem;"></i>
+        </li>
+      </ul> -->
     </div>
 
   </div>

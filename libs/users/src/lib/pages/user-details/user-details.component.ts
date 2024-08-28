@@ -1,30 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { User, UsersService } from '@eshop/users';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { UsersService } from '../../services/users.service';
+import { LocalstorageService } from '../../services/localstorage.service';
+import { User } from '../../models/users';
+import {FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { timer } from 'rxjs';
-import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 @Component({
-  selector: 'admin-users-form',
-  templateUrl: './users-form.component.html',
-  styleUrls: ['./users-form.component.scss'],
+  selector: 'eshop-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.scss']
 })
-export class UsersFormComponent implements OnInit{
+export class UserDetailsComponent implements OnInit{
+  // user!:User;
+  myuser:any;
+  userId!:string
   form!:FormGroup;
+  emailControl= new FormControl('',[ Validators.email, Validators.required]);
+  countries:any[] =[];
+  isSubmitted = false;
   editMode = false;
   currentId!:string;
-  isSubmitted = false;
-  countries:any[] =[];
-  emailControl= new FormControl('',[ Validators.email, Validators.required]);
 
 
-  constructor(private fb:FormBuilder,
-              private usersService: UsersService,
+  constructor(private usersService: UsersService,
+              private fb:FormBuilder,
               private messageService:MessageService,
               private router:Router,
-              private activatedRoute:ActivatedRoute){}
+               private activatedRoute:ActivatedRoute,
+               private confirmationService :ConfirmationService,
+              private localStorage:LocalstorageService
+            ){}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -37,10 +44,11 @@ export class UsersFormComponent implements OnInit{
       country:['', Validators.required],
       zip:['', Validators.required],
       password:['', Validators.required],
-      isAdmin:['']
+      isAdmin:[false]
     })
-    this._checkEditMode();
+    this.getUsers();
     this._getCountries();
+    this._checkEditMode();
 
   }
 
@@ -49,12 +57,47 @@ export class UsersFormComponent implements OnInit{
 
   }
 
+  getUsers(){
+    const token = this.localStorage.getToken();
+    if(token){
+      const tokenDecode = JSON.parse(atob(token.split('.')[1]));
+      this.usersService.getUser(tokenDecode.userId).subscribe(user =>{
+        this.myuser = user
+        if(user.id){this.userId = user.id}
+      })
+    }
+  }
+  deleteUser(userId:string){
+    // this.confirmationService.confirm({
+      // message: 'Do you want to delete this record?',
+      // header: 'Delete Confirmation',
+      // icon: 'pi pi-info-circle',
+      // accept: () => {
+    this.usersService.deleteUser(userId).subscribe((response)=>{
+      this.localStorage.removeToken();
+      window.location.reload();
+      this.messageService.add({
+        severity:'success',
+        summary:'user successfully deleted'
+      })
+    }, error =>{
+      console.log(error)
+      this.messageService.add({
+        severity:'error',
+        summary:'Failed to delete user'
+      })
+    })
+    // },
+    // reject: () => {console.log("response")}
+    // });
+  }
+
   private _checkEditMode(){
     this.activatedRoute.params.subscribe(params =>{
-      if(params['id']){
-        this.editMode = true;
-        this.currentId = params['id']
-        this.usersService.getUser(this.currentId).subscribe(user =>{
+      const token = this.localStorage.getToken();
+      if(token){
+        const tokenDecode = JSON.parse(atob(token.split('.')[1]));
+        this.usersService.getUser(tokenDecode.userId).subscribe(user =>{
           this.usersForm['name'].setValue(user.name)
           this.usersForm['email'].setValue(user.email)
           this.usersForm['phone'].setValue(user.phone)
@@ -90,35 +133,12 @@ export class UsersFormComponent implements OnInit{
       isAdmin:this.usersForm['isAdmin'].value
 
     }
-    if(this.editMode){
       this._updateUser(user);
-    }else{
-      this._createUser(user)
-    }
-
 
   }
 
-  private _createUser(user:User){
-    this.usersService.createUsers(user).subscribe(
-      user =>{
-        this.messageService.add({
-          severity:'success',
-          summary:'User successfully created', });
-
-          timer(3500).toPromise().then(()=>{
-            this.router.navigate(['/users'])
-          })
-      },error=>{
-        console.error("Failed to create user",error)
-        this.messageService.add({
-          severity:'error',
-          summary:'Failed to create user'})
-      }
-      )
-  }
   private _updateUser(user:User){
-    this.usersService.updateUser(this.currentId,user).subscribe(
+    this.usersService.updateUser(this.userId,user).subscribe(
       user =>{
         this.messageService.add({
           severity:'success',
@@ -135,7 +155,9 @@ export class UsersFormComponent implements OnInit{
       }
       )
   }
+
   get usersForm(){
     return this.form.controls
   }
+
 }

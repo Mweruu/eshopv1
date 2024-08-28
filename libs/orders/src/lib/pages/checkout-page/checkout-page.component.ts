@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '@eshop/users';
 import { OrderItem } from '../../models/order-item';
-import { Order } from '../../models/order';
+// import { Order } from '../../models/order';
 import { CartService } from '../../services/cart.service';
 import { OrderItemService } from '../../services/order-item.service';
 import { Cart } from '../../models/cart';
@@ -60,11 +60,9 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
 
   private _autofillUserData(){
     this.usersService.observeCurrentUser().pipe(takeUntil(this.endSubs$)).subscribe(user =>{
-      console.log(user)
       if(user){
         if(user?.id){
           this.userId = user.id
-        console.log("userid", this.userId)
         }
         this.usersForm['name'].setValue(user.name);
         this.usersForm['email'].setValue(user.email);
@@ -88,14 +86,11 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
   }
 
   private _getCartItems(){
-    console.log(this.userId)
     const cart: Cart = this.cartService.getCartItem();
     this.orderItems = this.orderItems = cart.items?.map((item) => ({
       product: item.productId || "",
       quantity: item.quantity || 0,
     })) as OrderItem[];
-
-
     // cart.items?.map((item) =>{
     //   return{
     //     product:item.productId,
@@ -103,7 +98,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     //   }
     // })
 
-    console.log(this.orderItems)
   }
 
 
@@ -112,25 +106,10 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
     this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe(cart =>{
       this.totalPrice = 0;
       if (cart) {
-        console.log("cart",cart)
           cart.items?.map((item) => {
             if (item.productId) {
             this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
               if(item.quantity){
-                console.log("_getOrderSummary", item, this.userId)
-                console.log(item.productId)
-                this.itemsForm = this.fb.group({
-                  product:[item.productId, Validators.required],
-                  quantity:[item.quantity, Validators.required],
-                })
-                const orderItems:OrderItem = {
-                  productId:this.orderItemsForm['product'].value,
-                  quantity:this.orderItemsForm['quantity'].value
-                }
-                console.log("orderItems", orderItems)
-                this._createOrderItems(orderItems);
-                // item.quantity * product.price
-                // item.quantity * product.price
                 this.totalPrice += product.price * item.quantity
               }
               });
@@ -142,18 +121,14 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
 
 
   private _createOrderItems(orderItem:OrderItem){
-    console.log("_createCartItems", this.orderItems, orderItem)
+    if(this.itemsForm.invalid){
+      return;
+    }
     this.OrderItemService.createOrderItem(orderItem).subscribe(
       orderItem =>{
-        console.log("rueru", orderItem)
         this.messageService.add({
           severity:'success',
           summary:'Orderitem successfully created', });
-
-          // timer(3500).toPromise().then(()=>{
-          //   this.router.navigate(['/orders'])
-          // })
-
       },error=>{
         console.error("Failed to create orderitem",error)
         this.messageService.add({
@@ -165,15 +140,11 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
   }
 
   placeOrder(){
-    console.log("gothere")
     this.isSubmitted = true;
     if(this.form.invalid || this.totalPrice <= 0){
         return;
     }
-    console.log(888)
-    console.log(this.userId)
-
-    const order: Order = {
+    const order = {
       orderItems: this.orderItems,
       shippingAddress1: this.usersForm['street'].value,
       shippingAddress2: this.usersForm['apartment'].value,
@@ -181,16 +152,42 @@ export class CheckoutPageComponent implements OnInit, OnDestroy{
       zip: this.usersForm['zip'].value,
       country: this.usersForm['country'].value,
       phone: this.usersForm['phone'].value,
-      status: 'Pending',
-      // status: 0,
+      status: '0',
       userId: this.userId,
       totalPrice:this.totalPrice,
       dateOrdered: `${Date.now()}`
     };
-
     this.ordersService.createOrder(order).subscribe(
-      () => {
-      console.log(order, order.id)
+      (response:any) => {
+        const order = response.order;
+        this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe(cart =>{
+          this.totalPrice = 0;
+          if (cart) {
+              cart.items?.map((item) => {
+                if (item.productId) {
+                this.ordersService.getProduct(item.productId).pipe(take(1)).subscribe((product) => {
+                  if(item.quantity){
+                    this.itemsForm = this.fb.group({
+                      product:[item.productId, Validators.required],
+                      quantity:[item.quantity, Validators.required],
+                      user:[order.userId, Validators.required],
+                      order:[order.id, Validators.required]
+                    })
+                    const orderItems:OrderItem = {
+                      productId:this.orderItemsForm['product'].value,
+                      quantity:this.orderItemsForm['quantity'].value,
+                      orderId:this.orderItemsForm['order'].value,
+                      userId:this.orderItemsForm['user'].value,
+                    }
+                    this._createOrderItems(orderItems);
+                    this.totalPrice += product.price * item.quantity
+                  }
+                  });
+                }
+              });
+          }
+        })
+
 
         //redirect to thank you page // payment
         this.cartService.emptyCart();

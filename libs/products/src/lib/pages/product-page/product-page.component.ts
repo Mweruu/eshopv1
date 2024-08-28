@@ -36,7 +36,6 @@ export class ProductPageComponent implements OnInit,OnDestroy{
   private _viewProduct(productId:string){
     this.productsService.getProduct(productId).pipe(takeUntil(this.endSubs$)).subscribe(product =>{
       this.product = product
-      console.log(this.product)
     })
   }
 
@@ -47,7 +46,6 @@ export class ProductPageComponent implements OnInit,OnDestroy{
       }
       this.cartService.setCartItem(cartItem)
       if(cartItem){
-        console.log(cartItem)
         this.messageService.add({
           severity:'success',
           summary:`${cartItem.quantity} Item added to cart`,
