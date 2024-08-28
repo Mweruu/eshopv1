@@ -11,9 +11,9 @@
         <p-rating [cancel]="false" [disabled]="true" [(ngModel)]="product.rating" ></p-rating>
       </div>
       <div class="product-price">
-        {{product.price | currency}}
+        {{product.price | currency : "KES"}}
         <span class="price-before">
-          {{ (product.price || 0) + 50  | currency }}
+          {{ (product.price || 0) + 150  | currency : "KES" }}
         </span>
       </div>
       <p-divider></p-divider>
