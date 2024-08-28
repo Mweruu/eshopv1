@@ -18,11 +18,13 @@
         "assets": [
                     "apps/e-shop/src/favicon.ico",
                     "apps/e-shop/src/assets",
+                    "apps/e-shop/src/_redirects",
                     {
                       "glob": "_redirects",
                       "input": "src/",
                       "output": "/"
-                  }],
+                  }
+                ],
         "styles": [
           "apps/e-shop/src/styles.scss",
           "node_modules/quill/dist/quill.core.css",
