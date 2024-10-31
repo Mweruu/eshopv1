@@ -44,7 +44,9 @@ export class LoginComponent implements OnInit{
         this.authError = false
         timer(3500).toPromise().then(()=>{
           this.localStorage.setToken(user.token)
-          this.router.navigate(['/'])
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          });
         })
 
     },(error:HttpErrorResponse)=>{

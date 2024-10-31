@@ -31,24 +31,24 @@
 
     <p-fieldset legend="Order Items" [toggleable]="true" styleClass="mb-4">
       <div class="formgrid grid mb-5 font-bold">
-        <div class="col-2">Name</div>
-        <div class="col-2">Brand</div>
-        <div class="col-2">Category</div>
-        <div class="col-2">Price</div>
-        <div class="col-2">Quantity</div>
-        <div class="col-2">subtotal</div>
+        <div class="col-12 md:col-12 lg:col-2">Name</div>
+        <div class="col-12 md:col-12 lg:col-2">Brand</div>
+        <div class="col-12 md:col-12 lg:col-2">Category</div>
+        <div class="col-12 md:col-12 lg:col-2">Price</div>
+        <div class="col-12 md:col-12 lg:col-2">Quantity</div>
+        <div class="col-12 md:col-12 lg:col-2">subtotal</div>
       </div>
       <div class="formgrid grid mb-5" *ngFor="let item of productArray">
-        <div class="col-2">{{item.products.name}}</div>
-        <div class="col-2">{{item.products.brand}}</div>
-        <div class="col-2">{{item.products.category?.name}}</div>
-        <div class="col-2">{{item.products.price}}</div>
-        <div class="col-2">{{item.quantity}}</div>
-        <div class="col-2"> {{item.subtotal}}</div>
+        <div class="col-12 md:col-12 lg:col-2">{{item.products.name}}</div>
+        <div class="col-12 md:col-12 lg:col-2">{{item.products.brand}}</div>
+        <div class="col-12 md:col-12 lg:col-2">{{item.products.category?.name}}</div>
+        <div class="col-12 md:col-12 lg:col-2">{{item.products.price}}</div>
+        <div class="col-12 md:col-12 lg:col-2">{{item.quantity}}</div>
+        <div class="col-12 md:col-12 lg:col-2"> {{item.subtotal}}</div>
       </div>
       <div class="formgrid grid mb-5 text-green-700 font-bold">
-        <div class="col-2 col-offset-8">Total Price</div>
-        <div class="col-2">{{order.totalPrice}}</div>
+        <div class="col-6 md:col-4 lg:col-2 lg:col-offset-8">Total Price</div>
+        <div class="col-6 md:col-4 lg:col-2">{{order.totalPrice}}</div>
       </div>
     </p-fieldset>
 
