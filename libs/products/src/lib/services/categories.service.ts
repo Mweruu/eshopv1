@@ -25,7 +25,7 @@ export class CategoriesService {
   }
 
   updateCategory(categoryId:string, category:Category): Observable<Category>{
-    return this.http.put<Category>(`${this.BASE_URL}updatecategory/${categoryId}`, category)
+    return this.http.patch<Category>(`${this.BASE_URL}updatecategory/${categoryId}`, category)
   }
 
   getCategory(categoryId:string): Observable<Category>{

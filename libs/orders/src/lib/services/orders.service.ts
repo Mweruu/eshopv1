@@ -26,7 +26,7 @@ export class OrdersService {
     return this.http.get<Order>(`${this.BASE_URL}getorder/${categoryId}`)
   }
   updateOrder(categoryId:string, order:Order): Observable<Order>{
-    return this.http.put<Order>(`${this.BASE_URL}updateorder/${categoryId}`, order)
+    return this.http.patch<Order>(`${this.BASE_URL}updateorder/${categoryId}`, order)
   }
 
   getProduct(productId:string):Observable<any>{
