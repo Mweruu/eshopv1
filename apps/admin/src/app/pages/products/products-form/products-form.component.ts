@@ -47,6 +47,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
       description:['', Validators.required],
       category:['', Validators.required],
       richDescription:[''],
+      imageDisplay:[''],
       isFeatured:[false],
 
     });
@@ -127,6 +128,11 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     productsData.append("countInStock", this.productsForm['countInStock'].value);
     for (let i = 0; i < images.length; i++) {
       productsData.append('images', images[i]);
+    }
+    if (this.editMode && this.imageDisplay.length > 0) {
+      for (let i = 0; i < this.imageDisplay.length; i++) {
+        productsData.append('existingImages', this.imageDisplay[i]); 
+      }
     }
     if(this.editMode){
       this._updateProduct(productsData)
