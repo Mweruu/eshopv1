@@ -176,6 +176,7 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
   }
 
   private _updateProduct(product:FormData){
+    console.log("update product", product)
     this.productsService.updateProduct(this.currentId,product).subscribe(
       product =>{
         this.messageService.add({
