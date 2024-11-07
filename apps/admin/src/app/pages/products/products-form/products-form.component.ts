@@ -126,14 +126,26 @@ export class ProductsFormComponent implements OnInit ,OnDestroy{
     productsData.append("categoryId", this.productsForm['category'].value);
     productsData.append("richDescription", this.productsForm['richDescription'].value);
     productsData.append("countInStock", this.productsForm['countInStock'].value);
-    for (let i = 0; i < images.length; i++) {
-      productsData.append('images', images[i]);
-    }
-    if (this.editMode && this.imageDisplay.length > 0) {
+    // for (let i = 0; i < images.length; i++) {
+    //   productsData.append('images', images[i]);
+    // }
+    // if (this.editMode && this.imageDisplay.length > 0) {
+    //   for (let i = 0; i < this.imageDisplay.length; i++) {
+    //     productsData.append('existingImages', this.imageDisplay[i]); 
+    //   }
+    // }
+    console.log(544543342323,this.editMode, images.length, this.imageDisplay.length)
+    if (images.length > 0) {
+      for (let i = 0; i < images.length; i++) {
+        productsData.append('images', images[i]);
+      }
+    } else if (this.editMode && this.imageDisplay.length > 0) {
+      // If no new images are uploaded and in edit mode, use the existing images
       for (let i = 0; i < this.imageDisplay.length; i++) {
-        productsData.append('existingImages', this.imageDisplay[i]); 
+        productsData.append('existingImages', this.imageDisplay[i]);
       }
     }
+  
     if(this.editMode){
       this._updateProduct(productsData)
     }else{
