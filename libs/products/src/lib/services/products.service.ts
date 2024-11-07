@@ -35,6 +35,6 @@ export class ProductsService {
   }
 
   updateProduct(productId:string ,product:FormData):Observable<Product>{
-    return this.http.put<Product>(`${this.BASE_URL}updateproduct/${productId}`, product)
+    return this.http.patch<Product>(`${this.BASE_URL}updateproduct/${productId}`, product)
   }
 }

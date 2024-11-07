@@ -51,7 +51,7 @@ export class UsersService {
     return this.http.get<User>(`${this.BASE_URL}getuser/${userId}`)
   }
   updateUser(userId:string, user:User):Observable<User>{
-    return this.http.put<User>(`${this.BASE_URL}updateuser/${userId}`,user)
+    return this.http.patch<User>(`${this.BASE_URL}updateuser/${userId}`,user)
   }
 
   getCountries(): { id: string; name: string }[] {
