@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit{
         street:[''],
         country:[''],
         zip:[''],
-        isAdmin:[true]
+        isAdmin:[false]
       })
   }
 
