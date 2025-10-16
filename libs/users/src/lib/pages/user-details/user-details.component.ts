@@ -44,7 +44,7 @@ export class UserDetailsComponent implements OnInit{
       country:['', Validators.required],
       zip:['', Validators.required],
       password:['', Validators.required],
-      isAdmin:[true]
+      isAdmin:[false]
     })
     this.getUsers();
     this._getCountries();
