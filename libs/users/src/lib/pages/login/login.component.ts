@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log("onsubmit")
     this.isSubmitted = true;
     if(this.LoginFormData.invalid){
       return
@@ -47,10 +46,9 @@ export class LoginComponent implements OnInit{
           this.localStorage.setToken(user.token)
           console.log(user, "#####", user.token)
           this.router.navigate(['/'])
-            // .then(() => {
-            console.log("got here navigate to /")
-            // window.location.reload();
-          // });
+            .then(() => {
+            window.location.reload();
+          });
         })
 
     },(error:HttpErrorResponse)=>{
